@@ -1,13 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Image to Text Converter (Multi-File, Drag & Drop & Copy & Clear)</title>
+    <title>Image to Text Converter (Multi-File, Drag & Drop & Copy & Clear & Dark Mode)</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        /* --- CSS Styles --- */
+        /* --- CSS Variables for Light and Dark Mode --- */
+        :root {
+            --bg-color: #f9f9f9;       /* Light background */
+            --text-color: #333;      /* Dark text */
+            --accent-color: #007bff;   /* Primary accent color (blue) */
+            --border-color: #ccc;     /* Default border color */
+            --input-bg-color: white;   /* Input background */
+        }
+
+        .dark-mode {
+            --bg-color: #121212;      /* Dark background */
+            --text-color: #eee;      /* Light text */
+            --accent-color: #64b5f6;   /* Lighter accent color for dark mode */
+            --border-color: #555;     /* Darker border color */
+            --input-bg-color: #333;   /* Dark input background */
+        }
+
+        /* --- General Styles --- */
         body {
             font-family: sans-serif;
             padding: 20px;
+            background-color: var(--bg-color); /* Use CSS variable for background */
+            color: var(--text-color);        /* Use CSS variable for text color */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for mode change */
         }
 
         h1 {
@@ -15,86 +35,144 @@
             margin-bottom: 20px;
         }
 
-        #fileUploadSection { /* Container for "Choose File" button */
+        #fileUploadSection {
             text-align: center;
             margin-bottom: 10px;
         }
 
         #imageUpload {
-            display: inline-block; /* To allow margin on sides */
-            margin-bottom: 10px; /* Spacing below button */
+            display: inline-block;
+            margin-bottom: 10px;
         }
 
         #imagePreview {
             max-width: 300px;
-            margin: 0 auto 10px auto; /* Center and add margin below */
-            border: 2px dashed #ccc; /* Dashed border to indicate drop zone */
+            margin: 0 auto 10px auto;
+            border: 2px dashed var(--border-color); /* Use CSS variable for border */
             padding: 20px;
             text-align: center;
-            cursor: pointer; /* Change cursor to indicate it's interactive */
+            cursor: pointer;
+            background-color: var(--input-bg-color); /* Input background color */
+            transition: background-color 0.3s ease, border-color 0.3s ease; /* Transition for mode change */
         }
+
+        .dark-mode #imagePreview { /* Specific style for dark mode preview */
+            background-color: var(--input-bg-color); /* Dark input background */
+            border-color: var(--border-color);      /* Darker border */
+        }
+
 
         #imagePreview img {
             max-width: 100%;
             height: auto;
             display: block;
-            margin: 0 auto; /* Center image in preview */
+            margin: 0 auto;
         }
 
-        #buttonContainer { /* Container for Convert and Clear buttons */
+        #buttonContainer {
             text-align: center;
             margin-bottom: 10px;
         }
 
-        #convertButton, #clearButton {
+        #convertButton, #clearButton, #copyButton, #darkModeToggle { /* Include toggle button */
             padding: 10px 20px;
             cursor: pointer;
-            margin: 5px; /* Spacing between buttons */
+            margin: 5px;
+            background-color: var(--accent-color); /* Accent color for buttons */
+            color: var(--bg-color);               /* Text color on buttons */
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease; /* Transition for button colors */
         }
 
-        #textOutputContainer { /* Container for textarea and copy button */
-            display: flex;       /* Use flexbox for layout */
-            flex-direction: row; /* Arrange items in a row */
-            align-items: flex-start; /* Vertically align items at the start (top) */
+        .dark-mode #convertButton, .dark-mode #clearButton, .dark-mode #copyButton, .dark-mode #darkModeToggle { /* Dark mode button styles */
+            background-color: var(--accent-color); /* Lighter accent color for dark mode buttons */
+            color: var(--text-color);              /* Text color on dark mode buttons */
+        }
+
+
+        #textOutputContainer {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
             margin-top: 10px;
         }
 
         #textOutput {
-            width: 100%;          /* Take up available width */
+            width: 100%;
             height: 200px;
             box-sizing: border-box;
             padding: 8px;
             font-family: monospace;
-            resize: vertical;      /* Allow vertical resizing of textarea */
+            resize: vertical;
+            background-color: var(--input-bg-color); /* Input background color */
+            color: var(--text-color);        /* Text color for textarea */
+            border: 1px solid var(--border-color); /* Textarea border */
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; /* Transition for textarea */
         }
 
+        .dark-mode #textOutput { /* Dark mode textarea styles */
+            background-color: var(--input-bg-color); /* Dark input background */
+            color: var(--text-color);              /* Light text in dark mode textarea */
+            border-color: var(--border-color);      /* Darker border */
+        }
+
+
         #copyButton {
-            padding: 8px 15px;
-            cursor: pointer;
-            margin-left: 10px;   /* Add spacing between textarea and button */
-            background: none;     /* Remove default button background */
-            border: none;         /* Remove default button border */
-            font-size: 1.2em;     /* Adjust icon size */
-            color: #555;          /* Icon color */
-            opacity: 0.7;         /* Slightly transparent by default */
-            transition: opacity 0.2s ease-in-out; /* Smooth opacity transition */
+            background: none;
+            border: none;
+            font-size: 1.2em;
+            color: var(--text-color); /* Use text color variable for icon */
+            opacity: 0.7;
+            transition: opacity 0.2s ease-in-out, color 0.3s ease; /* Transition for icon */
         }
 
         #copyButton:hover {
-            opacity: 1;         /* Fully opaque on hover */
-            color: #007bff;      /* Change color on hover */
+            opacity: 1;
+            color: var(--accent-color); /* Accent color on hover */
         }
 
         /* Style for when dragging over the drop zone */
         #imagePreview.dragover {
-            border-color: #007bff; /* Change border color when dragging over */
+            border-color: var(--accent-color); /* Accent color for dragover border */
             background-color: #f0f7ff; /* Light background color when dragging over */
+        }
+
+        .dark-mode #imagePreview.dragover { /* Dark mode dragover style */
+            background-color: #222; /* Darker background when dragging over in dark mode */
+        }
+
+        #darkModeToggle {
+            padding: 5px; /* Smaller padding for icon button */
+            font-size: 1.5em; /* Larger icon size */
+            border-radius: 50%; /* Make it circular */
+            width: 40px;      /* Fixed width */
+            height: 40px;     /* Fixed height */
+            display: flex;     /* Center icon inside */
+            align-items: center;
+            justify-content: center;
+            position: absolute; /* Position relative to body */
+            top: 20px;         /* Adjust as needed */
+            right: 20px;        /* Adjust as needed */
+            background-color: transparent; /* No background */
+            color: var(--text-color);        /* Icon color from text color variable */
+            opacity: 0.8;         /* Slightly transparent */
+            transition: opacity 0.2s ease-in-out, color 0.3s ease; /* Transition for icon button */
+        }
+
+        #darkModeToggle:hover {
+            opacity: 1;         /* Fully opaque on hover */
+            color: var(--accent-color); /* Accent color on hover */
         }
     </style>
 </head>
 <body>
 
-    <h1>Image to Text Converter (Multi-File, Drag & Drop & Copy & Clear)</h1>
+    <h1>Image to Text Converter (Multi-File, Drag & Drop & Copy & Clear & Dark Mode)</h1>
+
+    <button id="darkModeToggle" aria-label="Toggle Dark Mode">
+        <i id="darkModeIcon" class="fa-solid fa-sun"></i> <!-- **CHANGED to fa-solid fa-sun - Solid Sun Icon for Light Mode** -->
+    </button>
 
     <div id="fileUploadSection">
         <input type="file" id="imageUpload" accept="image/*" multiple>
@@ -106,32 +184,35 @@
 
     <div id="buttonContainer">
         <button id="convertButton">Convert to Text</button>
-        <button id="clearButton">Clear</button>  <!-- Added Clear Button -->
+        <button id="clearButton">Clear</button>
     </div>
-
 
     <div id="textOutputContainer">
         <textarea id="textOutput" placeholder="Extracted text will appear here"></textarea>
         <button id="copyButton" title="Copy to clipboard">
-            <i class="fa-regular fa-copy"></i> <!-- Copy Icon from Font Awesome -->
+            <i class="fa-regular fa-copy"></i>
         </button>
     </div>
 
 
     <script src="https://unpkg.com/tesseract.js@v5.x/dist/tesseract.min.js"></script>
     <script>
-        /* --- JavaScript Code (modified for Clear Button - Resetting File Input Value) --- */
+        /* --- JavaScript Code (modified for Dark Mode Toggle) --- */
         document.addEventListener('DOMContentLoaded', () => {
+            const body = document.body;
             const imageUpload = document.getElementById('imageUpload');
             const imagePreview = document.getElementById('imagePreview');
             const convertButton = document.getElementById('convertButton');
-            const clearButton = document.getElementById('clearButton'); // Get Clear button
+            const clearButton = document.getElementById('clearButton');
             const textOutput = document.getElementById('textOutput');
-            const copyButton = document.getElementById('copyButton'); // Get copy button
+            const copyButton = document.getElementById('copyButton');
+            const darkModeToggle = document.getElementById('darkModeToggle'); // Dark Mode Button
+            const darkModeIcon = document.getElementById('darkModeIcon');     // Dark Mode Icon inside button
 
-            let uploadedFiles = []; // Array to store multiple uploaded/dropped files
 
-            // --- Function to handle image loading and preview (now for multiple files) ---
+            let uploadedFiles = [];
+
+            // --- Function to handle image loading and preview (No changes here) ---
             const handleImageFiles = (files) => {
                 uploadedFiles = Array.from(files); // Store all files in the array
                 imagePreview.innerHTML = ''; // Clear previous preview
@@ -172,35 +253,31 @@
 
 
             imageUpload.addEventListener('change', (event) => {
-                handleImageFiles(event.target.files); // Pass all selected files
+                handleImageFiles(event.target.files);
             });
 
-            // --- Click to select image via imagePreview area ---
             imagePreview.addEventListener('click', () => {
-                imageUpload.click(); // Programmatically trigger file input click
+                imageUpload.click();
             });
 
-
-            // --- Drag and Drop Functionality ---
             imagePreview.addEventListener('dragover', (event) => {
-                event.preventDefault(); // Allow drop
-                imagePreview.classList.add('dragover'); // Add dragover class for styling
+                event.preventDefault();
+                imagePreview.classList.add('dragover');
             });
 
             imagePreview.addEventListener('dragleave', () => {
-                imagePreview.classList.remove('dragover'); // Remove dragover class
+                imagePreview.classList.remove('dragover');
             });
 
             imagePreview.addEventListener('drop', (event) => {
-                event.preventDefault(); // Prevent default browser behavior
-                imagePreview.classList.remove('dragover'); // Remove dragover class
+                event.preventDefault();
+                imagePreview.classList.remove('dragover');
 
                 const files = event.dataTransfer.files;
                 if (files && files.length > 0) {
-                    handleImageFiles(files); // Handle dropped files (plural)
+                    handleImageFiles(files);
                 }
             });
-
 
             convertButton.addEventListener('click', async () => {
                 if (uploadedFiles.length === 0) { // Check if any files are uploaded
@@ -234,7 +311,6 @@
                 }
             });
 
-            // --- Copy to Clipboard functionality ---
             copyButton.addEventListener('click', async () => {
                 const textToCopy = textOutput.value;
 
@@ -252,7 +328,6 @@
                 }
             });
 
-            // --- Clear Button Functionality ---
             clearButton.addEventListener('click', () => {
                 imagePreview.innerHTML = '<span>Drag and drop image(s) here or click to select</span>';
                 imagePreview.classList.remove('has-image');
@@ -261,6 +336,33 @@
                 imageUpload.value = ""; // Reset file input to clear selected files
             });
 
+            // --- Dark Mode Toggle Functionality ---
+            darkModeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode'); // Toggle dark-mode class on body
+                const isDarkMode = body.classList.contains('dark-mode'); // Check if dark mode is now active
+
+                // Change icon based on mode
+                if (isDarkMode) {
+                    darkModeIcon.classList.remove('fa-solid', 'fa-sun');
+                    darkModeIcon.classList.add('fa-solid', 'fa-moon'); // Use solid moon icon for dark mode
+                    darkModeToggle.setAttribute('aria-label', 'Enable Light Mode'); // Update aria-label for accessibility
+                } else {
+                    darkModeIcon.classList.remove('fa-solid', 'fa-moon');
+                    darkModeIcon.classList.add('fa-solid', 'fa-sun'); // Use solid sun icon for light mode **(Now Corrected to fa-solid)**
+                    darkModeToggle.setAttribute('aria-label', 'Enable Dark Mode'); // Update aria-label
+                }
+
+                // OPTIONAL: Save preference to localStorage (for persistence across sessions)
+                localStorage.setItem('darkMode', isDarkMode);
+            });
+
+            // --- Check for saved Dark Mode preference on page load --- (OPTIONAL Persistence)
+            if (localStorage.getItem('darkMode') === 'true') {
+                body.classList.add('dark-mode'); // Apply dark mode if saved preference is true
+                darkModeIcon.classList.remove('fa-regular', 'fa-sun'); // Removed fa-regular, keep fa-solid
+                darkModeIcon.classList.add('fa-solid', 'fa-moon'); // Set icon to moon
+                darkModeToggle.setAttribute('aria-label', 'Enable Light Mode'); // Update aria-label
+            }
         });
     </script>
 
