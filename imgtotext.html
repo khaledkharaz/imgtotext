@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Image to Text Converter (Drag & Drop & Copy)</title>
+    <title>Image to Text Converter (Drag & Drop, Upload & Copy)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         /* --- CSS Styles (from style.css) --- */
         body {
@@ -14,13 +15,19 @@
             margin-bottom: 20px;
         }
 
-        #imageUpload {
+        #fileUploadSection { /* Container for "Choose File" button */
+            text-align: center;
             margin-bottom: 10px;
+        }
+
+        #imageUpload {
+            display: inline-block; /* To allow margin on sides */
+            margin-bottom: 10px; /* Spacing below button */
         }
 
         #imagePreview {
             max-width: 300px;
-            margin-bottom: 10px;
+            margin: 0 auto 10px auto; /* Center and add margin below */
             border: 2px dashed #ccc; /* Dashed border to indicate drop zone */
             padding: 20px;
             text-align: center;
@@ -37,12 +44,15 @@
         #convertButton {
             padding: 10px 20px;
             cursor: pointer;
+            display: block; /* Make button block to center it */
+            margin: 0 auto 10px auto; /* Center and add margin below */
+            text-align: center; /* Ensure text is centered inside button */
         }
 
         #textOutputContainer { /* Container for textarea and copy button */
             display: flex;       /* Use flexbox for layout */
             flex-direction: row; /* Arrange items in a row */
-            align-items: center;  /* Vertically align items in the center */
+            align-items: flex-start; /* Vertically align items at the start (top) */
             margin-top: 10px;
         }
 
@@ -59,8 +69,18 @@
             padding: 8px 15px;
             cursor: pointer;
             margin-left: 10px;   /* Add spacing between textarea and button */
+            background: none;     /* Remove default button background */
+            border: none;         /* Remove default button border */
+            font-size: 1.2em;     /* Adjust icon size */
+            color: #555;          /* Icon color */
+            opacity: 0.7;         /* Slightly transparent by default */
+            transition: opacity 0.2s ease-in-out; /* Smooth opacity transition */
         }
 
+        #copyButton:hover {
+            opacity: 1;         /* Fully opaque on hover */
+            color: #007bff;      /* Change color on hover */
+        }
 
         /* Style for when dragging over the drop zone */
         #imagePreview.dragover {
@@ -71,9 +91,12 @@
 </head>
 <body>
 
-    <h1>Image to Text Converter (Drag & Drop & Copy)</h1>
+    <h1>Image to Text Converter (Drag & Drop, Upload & Copy)</h1>
 
-    <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+    <div id="fileUploadSection">
+        <input type="file" id="imageUpload" accept="image/*">
+    </div>
+
     <div id="imagePreview">
         <span>Drag and drop image here or click to select</span>
     </div>
@@ -81,13 +104,15 @@
 
     <div id="textOutputContainer">
         <textarea id="textOutput" placeholder="Extracted text will appear here"></textarea>
-        <button id="copyButton">Copy Text</button>
+        <button id="copyButton" title="Copy to clipboard">
+            <i class="fa-regular fa-copy"></i> <!-- Copy Icon from Font Awesome -->
+        </button>
     </div>
 
 
     <script src="https://unpkg.com/tesseract.js@v5.x/dist/tesseract.min.js"></script>
     <script>
-        /* --- JavaScript Code (modified for Drag & Drop & Copy) --- */
+        /* --- JavaScript Code (modified for Upload Button & Copy Icon) --- */
         document.addEventListener('DOMContentLoaded', () => {
             const imageUpload = document.getElementById('imageUpload');
             const imagePreview = document.getElementById('imagePreview');
@@ -115,14 +140,16 @@
                 }
             };
 
-            // --- Click to select image ---
-            imagePreview.addEventListener('click', () => {
-                imageUpload.click(); // Programmatically trigger file input click
-            });
 
             imageUpload.addEventListener('change', (event) => {
                 handleImageFile(event.target.files[0]);
             });
+
+            // --- Click to select image via imagePreview area ---
+            imagePreview.addEventListener('click', () => {
+                imageUpload.click(); // Programmatically trigger file input click
+            });
+
 
             // --- Drag and Drop Functionality ---
             imagePreview.addEventListener('dragover', (event) => {
@@ -174,7 +201,8 @@
                 if (textToCopy) {
                     try {
                         await navigator.clipboard.writeText(textToCopy);
-                        alert('Text copied to clipboard!'); // Basic feedback - can be improved
+                        // For better UX, consider replacing alert with a tooltip or temporary message
+                        alert('Text copied to clipboard!');
                     } catch (err) {
                         console.error('Failed to copy text: ', err);
                         alert('Failed to copy text. Please try again.');
