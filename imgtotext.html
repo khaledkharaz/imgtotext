@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Image to Text Converter</title>
+    <title>Image to Text Converter (Drag & Drop)</title>
     <style>
         /* --- CSS Styles (from style.css) --- */
         body {
@@ -21,12 +21,17 @@
         #imagePreview {
             max-width: 300px;
             margin-bottom: 10px;
+            border: 2px dashed #ccc; /* Dashed border to indicate drop zone */
+            padding: 20px;
+            text-align: center;
+            cursor: pointer; /* Change cursor to indicate it's interactive */
         }
 
         #imagePreview img {
             max-width: 100%;
             height: auto;
             display: block;
+            margin: 0 auto; /* Center image in preview */
         }
 
         #convertButton {
@@ -42,43 +47,88 @@
             padding: 8px;
             font-family: monospace;
         }
+
+        /* Style for when dragging over the drop zone */
+        #imagePreview.dragover {
+            border-color: #007bff; /* Change border color when dragging over */
+            background-color: #f0f7ff; /* Light background color when dragging over */
+        }
     </style>
 </head>
 <body>
 
-    <h1>Image to Text Converter</h1>
+    <h1>Image to Text Converter (Drag & Drop)</h1>
 
-    <input type="file" id="imageUpload" accept="image/*">
-    <div id="imagePreview"></div>
+    <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+    <div id="imagePreview">
+        <span>Drag and drop image here or click to select</span>
+    </div>
     <button id="convertButton">Convert to Text</button>
     <textarea id="textOutput" placeholder="Extracted text will appear here"></textarea>
 
     <script src="https://unpkg.com/tesseract.js@v5.x/dist/tesseract.min.js"></script>
     <script>
-        /* --- JavaScript Code (from script.js) --- */
+        /* --- JavaScript Code (modified for Drag & Drop) --- */
         document.addEventListener('DOMContentLoaded', () => {
             const imageUpload = document.getElementById('imageUpload');
             const imagePreview = document.getElementById('imagePreview');
             const convertButton = document.getElementById('convertButton');
             const textOutput = document.getElementById('textOutput');
 
-            imageUpload.addEventListener('change', (event) => {
-                const file = event.target.files[0];
-                if (file) {
+            let uploadedFile = null; // Variable to store the uploaded/dropped file
+
+            // --- Function to handle image loading and preview ---
+            const handleImageFile = (file) => {
+                if (file && file.type.startsWith('image/')) {
+                    uploadedFile = file; // Store the file
                     const reader = new FileReader();
                     reader.onload = (e) => {
                         imagePreview.innerHTML = `<img src="${e.target.result}" alt="Uploaded Image">`;
                     };
                     reader.readAsDataURL(file);
                 } else {
-                    imagePreview.innerHTML = '';
+                    imagePreview.innerHTML = '<span>Drag and drop image here or click to select</span>';
+                    uploadedFile = null;
+                    if (file) {
+                        alert("Please upload a valid image file.");
+                    }
+                }
+            };
+
+            // --- Click to select image ---
+            imagePreview.addEventListener('click', () => {
+                imageUpload.click(); // Programmatically trigger file input click
+            });
+
+            imageUpload.addEventListener('change', (event) => {
+                handleImageFile(event.target.files[0]);
+            });
+
+            // --- Drag and Drop Functionality ---
+            imagePreview.addEventListener('dragover', (event) => {
+                event.preventDefault(); // Allow drop
+                imagePreview.classList.add('dragover'); // Add dragover class for styling
+            });
+
+            imagePreview.addEventListener('dragleave', () => {
+                imagePreview.classList.remove('dragover'); // Remove dragover class
+            });
+
+            imagePreview.addEventListener('drop', (event) => {
+                event.preventDefault(); // Prevent default browser behavior
+                imagePreview.classList.remove('dragover'); // Remove dragover class
+
+                const files = event.dataTransfer.files;
+                if (files && files.length > 0) {
+                    handleImageFile(files[0]); // Handle the first dropped file
                 }
             });
 
+
             convertButton.addEventListener('click', async () => {
-                const file = imageUpload.files[0];
+                const file = uploadedFile; // Use the stored uploadedFile
                 if (!file) {
-                    alert("Please upload an image first.");
+                    alert("Please upload or drop an image first.");
                     return;
                 }
 
