@@ -1,278 +1,582 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Image to Text Converter - Sleek & Modern</title>
+    <title>Text Scanner - Mobile Optimized - No Drag & Drop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ---  Modern & Sleek CSS Design  --- */
+        /* ---  Responsive & Restyled CSS Design - LIGHT & DARK MODE - Senior UX/UI Version - RESPONSIVE & MOBILE OPTIMIZED - NO DRAG & DROP ON MOBILE --- */
         :root {
-            --primary-color: #3498db;       /*  Vibrant Blue - Accent */
-            --primary-color-dark: #2980b9;  /* Darker Blue for Hover/Active */
-            --secondary-color: #e74c3c;     /*  Red - Error/Highlight */
-            --bg-light: #f4f7f9;          /*  Light Background */
-            --bg-dark: #2d3e50;           /*  Dark Background */
-            --text-light: #333;           /*  Dark Text on Light BG */
-            --text-dark: #eee;            /*  Light Text on Dark BG */
-            --input-light: #fff;          /*  White Input Background - Light Mode */
-            --input-dark: #34495e;          /*  Dark Input Background - Dark Mode */
-            --border-light: #ddd;          /*  Light Border */
-            --border-dark: #555;           /*  Dark Border */
-            --shadow-light: 0 2px 5px rgba(0,0,0,0.1); /* Subtle Light Shadow */
-            --shadow-dark: 0 2px 5px rgba(0,0,0,0.3); /* Dark Mode Shadow */
-            --font-family: 'Poppins', sans-serif; /* Modern, Clean Font */
+            /* --- Light Mode Palette --- (unchanged) ... */
+            --primary-color: #6366f1;
+            --primary-color-dark: #4f46e5;
+            --secondary-color: #dc2626;
+            --bg-light: #f9fafb;
+            --text-light: #1e293b;
+            --input-light: #fff;
+            --border-light: #e5e7eb;
+            --shadow-light: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.02);
+            --font-family: 'Nunito Sans', sans-serif;
+            --header-bg-light: #fff;
+            --header-text-light: var(--text-light);
+            --accent-color-light: #bae6fd;
+
+            /* --- Dark Mode Palette --- (unchanged) ... */
+            --bg-dark: #1f2937;
+            --text-dark: #f0f0f0;
+            --input-dark: #374151;
+            --border-dark: #4b5563;
+            --shadow-dark: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.06);
+            --primary-color-dark-mode: #93c5fd;
+            --primary-color-dark-mode-darker: #60a5fa;
+            --secondary-color-dark-mode: #fca5a5;
+            --header-bg-dark: #2d3748;
+            --header-text-dark: var(--text-dark);
+            --accent-color-dark: #38bdf8;
         }
 
-        .dark-mode {
-            --bg-light: var(--bg-dark);
-            --bg-dark: var(--bg-light);
-            --text-light: var(--text-dark);
-            --text-dark: var(--text-light);
-            --input-light: var(--input-dark);
-            --input-dark: var(--input-light);
-            --border-light: var(--border-dark);
-            --border-dark: var(--border-light);
-            --shadow-light: var(--shadow-dark);
-            --shadow-dark: var(--shadow-light);
-        }
-
-        body {
+        body { /* ... (unchanged body styles) ... */
             font-family: var(--font-family);
-            margin: 0; /* Reset default margin */
-            padding: 20px;
+            margin: 0;
+            padding: 0;
             background-color: var(--bg-light);
             color: var(--text-light);
-            line-height: 1.6; /* Improved line spacing for readability */
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
             transition: background-color 0.3s ease, color 0.3s ease;
+            padding-top: 15px;
         }
 
-        .container { /*  Central Container for Content */
-            max-width: 800px;
-            margin: 20px auto; /* Center container */
-            padding: 30px;
-            background-color: var(--bg-light);
-            border-radius: 12px; /* Rounded corners for container */
-            box-shadow: var(--shadow-light); /* Subtle shadow */
+        body.dark-mode { /* ... (unchanged dark mode body styles) ... */
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
         }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: var(--primary-color); /* Brand color for heading */
-            font-weight: 600; /* Slightly bolder heading */
-            letter-spacing: -0.5px; /* Slightly tighter letter spacing */
-        }
-
-        #fileUploadSection, #imagePreview, #buttonContainer, #textOutputContainer {
-            margin-bottom: 25px; /* Increased spacing between sections */
-        }
-
-        #fileUploadSection {
-            text-align: center;
-        }
-
-        #imageUpload {
-            display: none; /* Hide default file input */
-        }
-
-        #imagePreview {
-            max-width: 100%; /* Responsive width */
-            height: auto;
-            min-height: 150px; /* Minimum height for drop zone */
-            border: 2px dashed var(--border-light);
-            border-radius: 8px;
-            padding: 30px;
-            text-align: center;
-            cursor: pointer;
-            background-color: var(--input-light);
-            display: flex; /* Center content vertically and horizontally */
+        header { /* ... (unchanged header styles) ... */
+            background-color: var(--header-bg-light);
+            color: var(--header-text-light);
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            flex-direction: column; /* Stack icon and text */
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-            box-shadow: var(--shadow-light); /* Subtle shadow */
+            box-shadow: var(--shadow-light);
+            margin-bottom: 30px;
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
         }
-
-        .dark-mode #imagePreview {
-            background-color: var(--input-dark);
-            border-color: var(--border-dark);
+        .dark-mode header { /* ... (unchanged dark mode header styles) ... */
+            background-color: var(--header-bg-dark);
+            color: var(--header-text-dark);
             box-shadow: var(--shadow-dark);
         }
 
-        #imagePreview.dragover {
-            border-color: var(--primary-color); /* Highlight border on drag over */
-            background-color: rgba(var(--primary-color-rgb), 0.05); /* Light highlight bg */
+        header h2 { /* ... (unchanged header h2 styles) ... */
+            margin: 0;
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.025em;
+        }
+        header h2 a { /* ... (unchanged header a styles) ... */
+            color: inherit;
+            text-decoration: none;
         }
 
-        #imagePreview img {
+
+        .container { /* ... (unchanged container styles) ... */
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: var(--bg-light);
+            border-radius: 12px;
+            box-shadow: var(--shadow-light);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .dark-mode .container { /* ... (unchanged dark mode container styles) ... */
+            background-color: var(--bg-dark);
+            box-shadow: var(--shadow-dark);
+        }
+
+        h1 { /* ... (unchanged h1 styles) ... */
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 2.25rem;
+            letter-spacing: -0.05em;
+        }
+
+        .dark-mode h1 { /* ... (unchanged dark mode h1 styles) ... */
+            color: var(--primary-color-dark-mode);
+        }
+
+
+        #fileUploadSection, #imagePreview, #buttonContainer, #textOutputContainer { /* ... (unchanged section margin) ... */
+            margin-bottom: 35px;
+        }
+
+        #fileUploadSection { /* ... (unchanged fileUploadSection styles) ... */
+            text-align: center;
+        }
+
+        #fileUploadSection button { /* ... (unchanged fileUploadSection button styles) ... */
+            padding: 14px 30px;
+            cursor: pointer;
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            background-color: var(--bg-light);
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: var(--shadow-light);
+            outline: none;
+        }
+
+        #fileUploadSection button:hover, #fileUploadSection button:focus { /* ... (unchanged fileUploadSection button hover styles) ... */
+            background-color: var(--primary-color);
+            color: var(--bg-light);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-light);
+            border-color: var(--primary-color-dark);
+        }
+
+        .dark-mode #fileUploadSection button { /* ... (unchanged dark mode fileUploadSection button styles) ... */
+            background-color: var(--input-dark);
+            color: var(--primary-color-dark-mode);
+            border-color: var(--primary-color-dark-mode);
+            box-shadow: var(--shadow-dark);
+        }
+
+        .dark-mode #fileUploadSection button:hover, .dark-mode #fileUploadSection button:focus { /* ... (unchanged dark mode fileUploadSection button hover styles) ... */
+            background-color: var(--primary-color-dark-mode);
+            color: var(--bg-dark);
+            border-color: var(--primary-color-dark-mode-darker);
+        }
+
+
+        #imageUpload { /* ... (unchanged imageUpload styles) ... */
+            display: none;
+        }
+
+        #imagePreview { /* ... (unchanged imagePreview styles - for desktop) ... */
+            max-width: 100%;
+            height: auto;
+            min-height: 200px;
+            border: 2px dashed var(--primary-color);
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            background-color: var(--input-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            box-shadow: var(--shadow-light);
+            transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark-mode #imagePreview { /* ... (unchanged dark mode imagePreview styles) ... */
+            border-color: var(--border-dark);
+            background-color: var(--input-dark);
+            box-shadow: var(--shadow-dark);
+        }
+
+
+        #imagePreview.dragover { /* ... (unchanged imagePreview dragover styles) ... */
+            border-color: var(--primary-color-dark);
+            background-color: rgba(var(--primary-color-rgb), 0.08);
+        }
+        .dark-mode #imagePreview.dragover { /* ... (unchanged dark mode imagePreview dragover styles) ... */
+            border-color: var(--primary-color-dark-mode-darker);
+            background-color: rgba(91, 192, 222, 0.1);
+        }
+
+
+        #imagePreview.dragover::before { /* ... (unchanged imagePreview dragover::before styles) ... */
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(var(--primary-color-rgb), 0.15);
+            border-radius: inherit;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .dark-mode #imagePreview.dragover::before { /* ... (unchanged dark mode imagePreview dragover::before styles) ... */
+            background-color: rgba(var(--primary-color-dark-mode-rgb), 0.2);
+        }
+
+
+        #imagePreview img { /* ... (unchanged imagePreview img styles) ... */
             max-width: 100%;
             height: auto;
             display: block;
-            margin: 0 auto 15px auto; /* Spacing below image in preview */
-            border-radius: 8px; /* Rounded corners for preview image */
+            margin: 0 auto 20px auto;
+            border-radius: 10px;
             box-shadow: var(--shadow-light);
+            transition: box-shadow 0.3s ease;
         }
-
-        #imagePreview i.fa-image { /* Style for image icon in preview area */
-            font-size: 2.5em;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-            opacity: 0.8;
-        }
-
-        #buttonContainer {
-            text-align: center;
-        }
-
-        #convertButton, #clearButton {
-            padding: 12px 25px;
-            cursor: pointer;
-            margin: 0 10px; /* Horizontal spacing between buttons */
-            border: none;
-            border-radius: 8px;
-            background-color: var(--primary-color);
-            color: var(--bg-light);
-            font-weight: 500;
-            transition: background-color 0.3s ease, transform 0.2s ease; /* Hover effect */
-            box-shadow: var(--shadow-light);
-            display: inline-flex; /* Align icon and text */
-            align-items: center;
-            justify-content: center;
-            gap: 8px; /* Spacing between icon and text */
-        }
-
-        #convertButton:hover, #clearButton:hover {
-            background-color: var(--primary-color-dark);
-            transform: scale(1.03); /* Subtle scale up on hover */
-        }
-
-        #clearButton {
-            background-color: #f0f0f0; /* Light gray for clear button */
-            color: var(--text-light);
-            box-shadow: none; /* No shadow for clear button */
-            border: 1px solid var(--border-light);
-        }
-
-        .dark-mode #clearButton {
-            background-color: #444; /* Darker gray for clear button in dark mode */
-            color: var(--text-dark);
-            border-color: var(--border-dark);
-        }
-
-        #clearButton:hover {
-            background-color: #e0e0e0; /* Lighter gray on hover */
-            transform: scale(1.03);
-        }
-        .dark-mode #clearButton:hover {
-            background-color: #555; /* Even Darker gray on hover in dark mode */
-        }
-
-
-        #textOutputContainer {
-            display: flex;
-            flex-direction: row;
-            align-items: flex-start; /* Align copy button to top of textarea */
-        }
-
-        #textOutput {
-            width: 100%;
-            height: 250px; /* Slightly taller textarea */
-            padding: 15px;
-            font-family: monospace;
-            resize: vertical;
-            border-radius: 8px;
-            border: 1px solid var(--border-light);
-            background-color: var(--input-light);
-            color: var(--text-light);
-            box-shadow: var(--shadow-light);
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-        }
-
-        .dark-mode #textOutput {
-            background-color: var(--input-dark);
-            color: var(--text-dark);
-            border-color: var(--border-dark);
+        .dark-mode #imagePreview img { /* ... (unchanged dark mode imagePreview img styles) ... */
             box-shadow: var(--shadow-dark);
         }
 
-        #copyButton {
-            padding: 10px 15px;
+
+        #imagePreview i.fa-image { /* ... (unchanged imagePreview i.fa-image styles) ... */
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            opacity: 0.9;
+            transition: color 0.3s ease;
+        }
+        .dark-mode #imagePreview i.fa-image { /* ... (unchanged dark mode imagePreview i.fa-image styles) ... */
+            color: var(--primary-color-dark-mode);
+        }
+
+        #imagePreview span { /* ... (unchanged imagePreview span styles) ... */
+            font-size: 1.1rem;
+            color: var(--text-light);
+            opacity: 0.8;
+        }
+        .dark-mode #imagePreview span { /* ... (unchanged dark mode imagePreview span styles) ... */
+            color: var(--text-dark);
+        }
+
+        #imagePreview a { /* ... (unchanged imagePreview a styles) ... */
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        #imagePreview a:hover, #imagePreview a:focus { /* ... (unchanged imagePreview a hover styles) ... */
+            color: var(--primary-color-dark);
+            text-decoration: underline;
+        }
+        .dark-mode #imagePreview a { /* ... (unchanged dark mode imagePreview a styles) ... */
+            color: var(--primary-color-dark-mode);
+        }
+        .dark-mode #imagePreview a:hover, .dark-mode #imagePreview a:focus { /* ... (unchanged dark mode imagePreview a hover styles) ... */
+            color: var(--primary-color-dark-mode-darker);
+        }
+
+
+        #buttonContainer { /* ... (unchanged buttonContainer styles) ... */
+            text-align: center;
+        }
+
+        #convertButton, #clearButton { /* ... (unchanged convertButton, clearButton styles) ... */
+            padding: 14px 30px;
             cursor: pointer;
-            margin-left: 15px; /* Increased spacing from textarea */
+            margin: 0 15px;
+            border: none;
+            border-radius: 10px;
+            background-color: var(--primary-color);
+            color: var(--bg-light);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: var(--shadow-light);
+            outline: none;
+        }
+
+        #convertButton:hover, #convertButton:focus, #clearButton:hover, #clearButton:focus { /* ... (unchanged button hover styles) ... */
+            background-color: var(--primary-color-dark);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-light);
+        }
+
+        .dark-mode #convertButton { /* ... (unchanged dark mode convertButton styles) ... */
+            background-color: var(--primary-color-dark-mode);
+            color: var(--bg-dark);
+            box-shadow: var(--shadow-dark);
+        }
+        .dark-mode #convertButton:hover, .dark-mode #convertButton:focus { /* ... (unchanged dark mode convertButton hover styles) ... */
+            background-color: var(--primary-color-dark-mode-darker);
+            box-shadow: var(--shadow-dark);
+        }
+
+
+        #clearButton { /* ... (unchanged clearButton styles) ... */
+            background-color: var(--border-light);
+            color: var(--text-light);
+            box-shadow: none;
+            border: 2px solid transparent;
+        }
+
+        #clearButton:hover, #clearButton:focus { /* ... (unchanged clearButton hover styles) ... */
+            background-color: #d1d5db;
+            border-color: var(--border-light);
+        }
+
+
+        .dark-mode #clearButton { /* ... (unchanged dark mode clearButton styles) ... */
+            background-color: var(--input-dark);
+            color: var(--text-dark);
+            border-color: transparent;
+            box-shadow: none;
+        }
+        .dark-mode #clearButton:hover, .dark-mode #clearButton:focus { /* ... (unchanged dark mode clearButton hover styles) ... */
+            background-color: #4a5568;
+            border-color: var(--border-dark);
+        }
+
+
+        #textOutputContainer { /* ... (unchanged textOutputContainer styles) ... */
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            margin-top: 15px;
+            margin-right: 25px;
+        }
+        /* ADDED RIGHT MARGIN FOR TEXT OUTPUT CONTAINER ON MOBILE (unchanged) */
+        @media (max-width: 576px) {
+          #textOutputContainer {
+            margin-right: 15px;
+          }
+        }
+
+
+        #textOutput { /* ... (unchanged textOutput styles) ... */
+            width: 100%;
+            height: 300px;
+            padding: 20px;
+            font-family: monospace;
+            resize: vertical;
+            border-radius: 10px;
+            border: 2px solid var(--border-light);
+            background-color: var(--input-light);
+            color: var(--text-light);
+            box-shadow: var(--shadow-light);
+            font-size: 1rem;
+            transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+            outline: none;
+        }
+        #textOutput:focus { /* ... (unchanged textOutput focus styles) ... */
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.2);
+        }
+
+
+        .dark-mode #textOutput { /* ... (unchanged dark mode textOutput styles) ... */
+            border-color: var(--border-dark);
+            background-color: var(--input-dark);
+            color: var(--text-dark);
+            box-shadow: var(--shadow-dark);
+        }
+        .dark-mode #textOutput:focus { /* ... (unchanged dark mode textOutput focus styles) ... */
+            border-color: var(--primary-color-dark-mode);
+            box-shadow: 0 0 0 3px rgba(91, 192, 222, 0.2);
+        }
+
+        #copyButtonDev { /* ... (unchanged copyButtonDev styles) ... */
+            display: flex;
+            flex-direction: row;
+            justify-content: end;
+        }
+
+        #copyButton { /* ... (unchanged copyButton styles) ... */
+            display: flex;
+            flex-direction: row;
+            justify-content: end;
+            /* float: right; */
+            padding: 12px 15px;
+            cursor: pointer;
+            margin-left: 20px;
             background: none;
             border: none;
-            font-size: 1.4em; /* Larger icon size */
+            font-size: 1.6rem;
             color: var(--text-light);
             opacity: 0.7;
-            transition: opacity 0.2s ease-in-out, color 0.3s ease, transform 0.2s ease;
+            transition: opacity 0.2s ease-in-out, transform 0.2s ease, color 0.3s ease;
+            outline: none;
         }
 
-        #copyButton:hover {
-            opacity: 1;
-            color: var(--primary-color);
-            transform: scale(1.1); /* Subtle scale up on hover */
-        }
-
-        #darkModeToggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            font-size: 1.8em;
-            color: var(--text-light);
-            cursor: pointer;
-            opacity: 0.8;
-            transition: opacity 0.2s ease-in-out, color 0.3s ease, transform 0.2s ease;
-        }
-
-        #darkModeToggle:hover {
+        #copyButton:hover, #copyButton:focus { /* ... (unchanged copyButton hover styles) ... */
             opacity: 1;
             color: var(--primary-color);
             transform: scale(1.1);
         }
+        .dark-mode #copyButton { /* ... (unchanged dark mode copyButton styles) ... */
+            color: var(--text-dark);
+        }
+        .dark-mode #copyButton:hover, .dark-mode #copyButton:focus { /* ... (unchanged dark mode copyButton hover styles) ... */
+            color: var(--primary-color-dark-mode);
+        }
 
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
+
+        /* --- Custom Alert Styles --- */
+        #customAlert { /* ... (unchanged customAlert styles) ... */
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            right: 30px;
+            background-color: var(--bg-light);
+            color: var(--text-light);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: var(--shadow-light);
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+            z-index: 1000;
+            transform: translateY(20px);
+            font-size: 0.9rem;
+        }
+
+        .dark-mode #customAlert { /* ... (unchanged dark mode customAlert styles) ... */
+            background-color: var(--input-dark);
+            color: var(--text-dark);
+            box-shadow: var(--shadow-dark);
+        }
+
+
+        #customAlert.show { /* ... (unchanged customAlert show styles) ... */
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+
+        /* --- Dark Mode Toggle Button Styles --- */
+        #darkModeToggle { /* ... (unchanged darkModeToggle styles) ... */
+            float: right;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 1.75rem;
+            opacity: 0.9;
+            transition: opacity 0.2s ease, color 0.3s ease, transform 0.2s ease;
+            padding: 12px;
+            border-radius: 12px;
+            outline: none;
+        }
+
+        #darkModeToggle:hover, #darkModeToggle:focus { /* ... (unchanged darkModeToggle hover styles) ... */
+            opacity: 1;
+            color: var(--primary-color);
+            transform: scale(1.1);
+        }
+        .dark-mode #darkModeToggle { /* ... (unchanged dark mode darkModeToggle styles) ... */
+            color: var(--text-dark);
+        }
+        .dark-mode #darkModeToggle:hover, .dark-mode #darkModeToggle:focus { /* ... (unchanged dark mode darkModeToggle hover styles) ... */
+            color: var(--primary-color-dark-mode);
+        }
+
+        #darkModeToggle i { /* ... (unchanged darkModeToggle i styles) ... */
+            pointer-events: none;
+        }
+
+        /* --- Media Queries for Responsiveness --- */
+
+        /* For tablets and larger smartphones - Adjust container width and padding, font sizes */
+        @media (max-width: 768px) { /* ... (unchanged tablet media query) ... */
             .container {
-                padding: 20px;
-                border-radius: 0; /* No rounded corners on smaller screens */
-                box-shadow: none;
+                max-width: 90%;
+                padding: 30px;
             }
             h1 {
-                font-size: 2em;
-                margin-bottom: 20px;
+                font-size: 2rem;
+                margin-bottom: 30px;
+            }
+            #fileUploadSection button, #convertButton, #clearButton {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            #imagePreview {
+                padding: 30px;
+                min-height: 160px;
+            }
+            #textOutput {
+                height: 250px;
+                padding: 15px;
+                font-size: 0.95rem;
+            }
+        }
+
+        /* For smaller smartphones - Further reduce container width, padding, font sizes, stack buttons */
+        @media (max-width: 576px) {
+            .container {
+                max-width: 95%;
+                padding: 20px;
+                border-radius: 8px;
+            }
+            h1 {
+                font-size: 1.75rem;
+                margin-bottom: 25px;
+            }
+            #fileUploadSection button, #convertButton, #clearButton {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+                margin: 5px;
             }
             #buttonContainer {
                 display: flex;
-                flex-direction: column; /* Stack buttons on smaller screens */
+                flex-direction: column;
                 align-items: center;
             }
             #convertButton, #clearButton {
-                margin: 10px 0; /* Vertical spacing for stacked buttons */
-                width: 90%; /* Full width buttons on smaller screens */
-                display: block; /* Ensure full width */
+                margin: 5px 0;
+                width: 90%;
+                max-width: 250px;
+            }
+
+            /* HIDE IMAGE PREVIEW SECTION COMPLETELY ON MOBILE */
+            #imagePreview {
+                display: none; /* HIDE imagePreview on mobile */
             }
             #textOutputContainer {
-                flex-direction: column; /* Stack textarea and copy button */
+                margin-top: 0; /* Adjust margin when imagePreview is hidden */
+            }
+
+
+            #textOutput {
+                height: 200px;
+                padding: 10px;
+                font-size: 0.9rem;
+                border-radius: 6px;
             }
             #copyButton {
-                margin-left: 0;
-                margin-top: 15px; /* Spacing above copy button when stacked */
-                text-align: center; /* Center copy button icon below textarea */
+                font-size: 1.4rem;
+                margin-top: 5px;
+            }
+            #customAlert {
+                padding: 15px;
+                bottom: 10px;
+                border-radius: 6px;
+                font-size: 0.85rem;
+            }
+            header {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+            header h2 {
+                font-size: 1.3rem;
+            }
+            #darkModeToggle {
+                font-size: 1.6rem;
+                padding: 5px;
+                top: 10px;
+                right: 10px;
             }
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>Smart Image to Text</h1>
-
-        <button id="darkModeToggle" aria-label="Toggle Dark Mode">
-            <i id="darkModeIcon" class="fa-solid fa-sun"></i>
+<body class="dark-mode">
+          <button id="darkModeToggle" title="Toggle Dark Mode" aria-label="Toggle Dark Mode">
+            <i class="fas fa-sun light-mode-icon"></i><i class="fas fa-moon dark-mode-icon" style="display: none;"></i>
         </button>
+
+    <div class="container">
 
         <div id="fileUploadSection">
             <input type="file" id="imageUpload" accept="image/*" multiple>
@@ -283,7 +587,7 @@
 
         <div id="imagePreview">
             <i class="fas fa-image"></i>
-            <span>Drag and drop image(s) here or <a href="javascript:void(0);" onclick="document.getElementById('imageUpload').click();" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">click to select</a></span>
+            <span>Drag and drop image(s) here or <a href="javascript:void(0);" onclick="document.getElementById('imageUpload').click();">click to select</a></span>
         </div>
 
         <div id="buttonContainer">
@@ -291,49 +595,100 @@
             <button id="clearButton"><i class="fas fa-broom"></i> Clear All</button>
         </div>
 
-        <div id="textOutputContainer">
-            <textarea id="textOutput" placeholder="Extracted text will appear here"></textarea>
+        <div id="copyButtonDev">
             <button id="copyButton" title="Copy to clipboard">
                 <i class="fa-regular fa-copy"></i>
             </button>
         </div>
+        <div id="textOutputContainer">
+            <textarea id="textOutput" placeholder="Extracted text will appear here"></textarea>
+
+        </div>
+
+        <div id="customAlert"></div> <!-- Custom Alert Container Added -->
     </div>
 
     <script src="https://unpkg.com/tesseract.js@v5.x/dist/tesseract.min.js"></script>
     <script>
-        /* --- JavaScript Code (modified for Dark Mode Toggle) --- */
+        /* --- Dark Mode JavaScript --- */
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const lightModeIcon = darkModeToggle.querySelector('.fa-sun');
+        const darkModeIcon = darkModeToggle.querySelector('.fa-moon');
+
+        function enableDarkMode() {
+            document.body.classList.add('dark-mode');
+            localStorage.setItem('darkMode', 'enabled');
+            lightModeIcon.style.display = 'none';
+            darkModeIcon.style.display = 'inline-block';
+        }
+
+        function disableDarkMode() {
+            document.body.classList.remove('dark-mode');
+            localStorage.setItem('darkMode', 'disabled');
+            darkModeIcon.style.display = 'none';
+            lightModeIcon.style.display = 'inline-block';
+        }
+
+        // Check for saved preference on page load
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            enableDarkMode();
+        } else if (localStorage.getItem('darkMode') === 'disabled') {
+            disableDarkMode();
+        } else {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                enableDarkMode();
+            }
+        }
+
+        darkModeToggle.addEventListener('click', () => {
+            if (document.body.classList.contains('dark-mode')) {
+                disableDarkMode();
+            } else {
+                enableDarkMode();
+            }
+        });
+
+
+        /* --- JavaScript Code (modified for Custom Alerts) --- */
         document.addEventListener('DOMContentLoaded', () => {
-            const body = document.body;
-            const container = document.querySelector('.container'); /* Get container for shadow */
             const imageUpload = document.getElementById('imageUpload');
             const imagePreview = document.getElementById('imagePreview');
             const convertButton = document.getElementById('convertButton');
             const clearButton = document.getElementById('clearButton');
             const textOutput = document.getElementById('textOutput');
             const copyButton = document.getElementById('copyButton');
-            const darkModeToggle = document.getElementById('darkModeToggle');
-            const darkModeIcon = document.getElementById('darkModeIcon');
+            const customAlert = document.getElementById('customAlert'); // Get the alert container
 
 
             let uploadedFiles = [];
 
+            // --- Function to Show Custom Alert ---
+            function showCustomAlert(message) {
+                customAlert.textContent = message;
+                customAlert.classList.add('show');
+                setTimeout(() => {
+                    customAlert.classList.remove('show');
+                }, 3000);
+            }
+
+
             // --- Function to handle image loading and preview (No changes here) ---
-            const handleImageFiles = (files) => {
+            const handleImageFiles = (files) => { // ... rest of handleImageFiles function - NO CHANGES ... };
                 uploadedFiles = Array.from(files);
                 imagePreview.innerHTML = '';
                 if (files && files.length > 0) {
                     if (files.length === 1) {
                         const file = files[0];
-                        if (file.type.startsWith('image/')) {
+                            if (file.type.startsWith('image/')) {
                             const reader = new FileReader();
                             reader.onload = (e) => {
                                 imagePreview.innerHTML = `<img src="${e.target.result}" alt="Uploaded Image">`;
                             };
                             reader.readAsDataURL(file);
                         } else {
-                            imagePreview.innerHTML = '<i class="fas fa-image"></i><span>Drag and drop image(s) here or <a href="javascript:void(0);" onclick="document.getElementById(\'imageUpload\').click();" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">click to select</a></span>';
+                            imagePreview.innerHTML = '<i class="fas fa-image"></i><span>Drag and drop image(s) here or click to select</span>';
                             uploadedFiles = [];
-                            alert("Please upload valid image files.");
+                            showCustomAlert("Please upload valid image files.");
                         }
                     } else {
                         let previewContent = '<b>Multiple images selected:</b><br>';
@@ -342,16 +697,16 @@
                                 previewContent += `${file.name}<br>`;
                             }
                         }
-                        imagePreview.innerHTML = previewContent || '<i class="fas fa-image"></i><span>Drag and drop image(s) here or <a href="javascript:void(0);" onclick="document.getElementById(\'imageUpload\').click();" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">click to select</a></span>';
+                        imagePreview.innerHTML = previewContent || '<i class="fas fa-image"></i><span>Drag and drop image(s) here or click to select</span>';
                         if (previewContent === '<b>Multiple images selected:</b><br>') {
                             uploadedFiles = [];
-                            alert("Please upload valid image files.");
-                            imagePreview.innerHTML = '<i class="fas fa-image"></i><span>Drag and drop image(s) here or <a href="javascript:void(0);" onclick="document.getElementById(\'imageUpload\').click();" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">click to select</a></span>';
+                            showCustomAlert("Please upload valid image files.");
+                            imagePreview.innerHTML = '<i class="fas fa-image"></i><span>Drag and drop image(s) here or click to select</span>';
                         }
 
                     }
                 } else {
-                    imagePreview.innerHTML = '<i class="fas fa-image"></i><span>Drag and drop image(s) here or <a href="javascript:void(0);" onclick="document.getElementById(\'imageUpload\').click();" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">click to select</a></span>';
+                    imagePreview.innerHTML = '<i class="fas fa-image"></i><span>Drag and drop image(s) here or click to select</span>';
                     uploadedFiles = [];
                 }
             };
@@ -386,7 +741,7 @@
 
             convertButton.addEventListener('click', async () => {
                 if (uploadedFiles.length === 0) {
-                    alert("Please upload or drop image(s) first.");
+                    showCustomAlert("Please upload or drop image(s) first.");
                     return;
                 }
 
@@ -406,6 +761,7 @@
                     } catch (error) {
                         console.error(`OCR Error for ${file.name}:`, error);
                         combinedText += `--- Error during OCR for ${file.name} ---\nError details in console.\n\n`;
+                        showCustomAlert(`OCR Error for ${file.name}. See console for details.`);
                     }
                 }
 
@@ -413,6 +769,7 @@
 
                 if (!textOutput.value.trim()) {
                     textOutput.value = "No text extracted from the selected images or errors occurred. Check console for details.";
+                    showCustomAlert("No text extracted or errors occurred. Check console.");
                 }
             });
 
@@ -422,14 +779,13 @@
                 if (textToCopy) {
                     try {
                         await navigator.clipboard.writeText(textToCopy);
-                        // For better UX, consider replacing alert with a tooltip or temporary message
-                        alert('Text copied to clipboard!');
+                        showCustomAlert('Text copied to clipboard!');
                     } catch (err) {
                         console.error('Failed to copy text: ', err);
-                        alert('Failed to copy text. Please try again.');
+                        showCustomAlert('Failed to copy text. Please try again.');
                     }
                 } else {
-                    alert('No text to copy.');
+                    showCustomAlert('No text to copy.');
                 }
             });
 
@@ -441,32 +797,7 @@
                 imageUpload.value = "";
             });
 
-            // --- Dark Mode Toggle Functionality ---
-            darkModeToggle.addEventListener('click', () => {
-                body.classList.toggle('dark-mode');
-                container.classList.toggle('dark-mode'); /* Toggle dark mode on container too for shadow */
-                const isDarkMode = body.classList.contains('dark-mode');
 
-                if (isDarkMode) {
-                    darkModeIcon.classList.remove('fa-solid', 'fa-sun');
-                    darkModeIcon.classList.add('fa-solid', 'fa-moon');
-                    darkModeToggle.setAttribute('aria-label', 'Enable Light Mode');
-                } else {
-                    darkModeIcon.classList.remove('fa-solid', 'fa-moon');
-                    darkModeIcon.classList.add('fa-solid', 'fa-sun');
-                    darkModeToggle.setAttribute('aria-label', 'Enable Dark Mode');
-                }
-
-                localStorage.setItem('darkMode', isDarkMode);
-            });
-
-            if (localStorage.getItem('darkMode') === 'true') {
-                body.classList.add('dark-mode');
-                container.classList.add('dark-mode'); /* Apply dark mode to container on load */
-                darkModeIcon.classList.remove('fa-solid', 'fa-sun');
-                darkModeIcon.classList.add('fa-solid', 'fa-moon');
-                darkModeToggle.setAttribute('aria-label', 'Enable Light Mode');
-            }
         });
     </script>
 
