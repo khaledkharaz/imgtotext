@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Image to Text Converter (Drag & Drop, Upload & Copy)</title>
+    <title>Image to Text Converter (Multi-File, Drag & Drop & Copy & Clear)</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        /* --- CSS Styles (from style.css) --- */
+        /* --- CSS Styles --- */
         body {
             font-family: sans-serif;
             padding: 20px;
@@ -41,12 +41,15 @@
             margin: 0 auto; /* Center image in preview */
         }
 
-        #convertButton {
+        #buttonContainer { /* Container for Convert and Clear buttons */
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        #convertButton, #clearButton {
             padding: 10px 20px;
             cursor: pointer;
-            display: block; /* Make button block to center it */
-            margin: 0 auto 10px auto; /* Center and add margin below */
-            text-align: center; /* Ensure text is centered inside button */
+            margin: 5px; /* Spacing between buttons */
         }
 
         #textOutputContainer { /* Container for textarea and copy button */
@@ -91,16 +94,21 @@
 </head>
 <body>
 
-    <h1>Image to Text Converter (Drag & Drop, Upload & Copy)</h1>
+    <h1>Image to Text Converter (Multi-File, Drag & Drop & Copy & Clear)</h1>
 
     <div id="fileUploadSection">
-        <input type="file" id="imageUpload" accept="image/*">
+        <input type="file" id="imageUpload" accept="image/*" multiple>
     </div>
 
     <div id="imagePreview">
-        <span>Drag and drop image here or click to select</span>
+        <span>Drag and drop image(s) here or click to select</span>
     </div>
-    <button id="convertButton">Convert to Text</button>
+
+    <div id="buttonContainer">
+        <button id="convertButton">Convert to Text</button>
+        <button id="clearButton">Clear</button>  <!-- Added Clear Button -->
+    </div>
+
 
     <div id="textOutputContainer">
         <textarea id="textOutput" placeholder="Extracted text will appear here"></textarea>
@@ -112,37 +120,59 @@
 
     <script src="https://unpkg.com/tesseract.js@v5.x/dist/tesseract.min.js"></script>
     <script>
-        /* --- JavaScript Code (modified for Upload Button & Copy Icon) --- */
+        /* --- JavaScript Code (modified for Clear Button - Resetting File Input Value) --- */
         document.addEventListener('DOMContentLoaded', () => {
             const imageUpload = document.getElementById('imageUpload');
             const imagePreview = document.getElementById('imagePreview');
             const convertButton = document.getElementById('convertButton');
+            const clearButton = document.getElementById('clearButton'); // Get Clear button
             const textOutput = document.getElementById('textOutput');
             const copyButton = document.getElementById('copyButton'); // Get copy button
 
-            let uploadedFile = null; // Variable to store the uploaded/dropped file
+            let uploadedFiles = []; // Array to store multiple uploaded/dropped files
 
-            // --- Function to handle image loading and preview ---
-            const handleImageFile = (file) => {
-                if (file && file.type.startsWith('image/')) {
-                    uploadedFile = file; // Store the file
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        imagePreview.innerHTML = `<img src="${e.target.result}" alt="Uploaded Image">`;
-                    };
-                    reader.readAsDataURL(file);
-                } else {
-                    imagePreview.innerHTML = '<span>Drag and drop image here or click to select</span>';
-                    uploadedFile = null;
-                    if (file) {
-                        alert("Please upload a valid image file.");
+            // --- Function to handle image loading and preview (now for multiple files) ---
+            const handleImageFiles = (files) => {
+                uploadedFiles = Array.from(files); // Store all files in the array
+                imagePreview.innerHTML = ''; // Clear previous preview
+                if (files && files.length > 0) {
+                    if (files.length === 1) { // If only one file, show preview as before
+                        const file = files[0];
+                        if (file.type.startsWith('image/')) {
+                            const reader = new FileReader();
+                            reader.onload = (e) => {
+                                imagePreview.innerHTML = `<img src="${e.target.result}" alt="Uploaded Image">`;
+                            };
+                            reader.readAsDataURL(file);
+                        } else {
+                            imagePreview.innerHTML = '<span>Drag and drop image(s) here or click to select</span>';
+                            uploadedFiles = [];
+                            alert("Please upload valid image files.");
+                        }
+                    } else { // For multiple files, just show filenames (simplified preview)
+                        let previewContent = '<b>Multiple images selected:</b><br>';
+                        for (const file of files) {
+                            if (file.type.startsWith('image/')) {
+                                previewContent += `${file.name}<br>`;
+                            }
+                        }
+                        imagePreview.innerHTML = previewContent || '<span>Drag and drop image(s) here or click to select</span>'; // Show filenames or default text
+                        if (previewContent === '<b>Multiple images selected:</b><br>') { // If no valid images in multiple files
+                            uploadedFiles = [];
+                            alert("Please upload valid image files.");
+                            imagePreview.innerHTML = '<span>Drag and drop image(s) here or click to select</span>';
+                        }
+
                     }
+                } else {
+                    imagePreview.innerHTML = '<span>Drag and drop image(s) here or click to select</span>';
+                    uploadedFiles = [];
                 }
             };
 
 
             imageUpload.addEventListener('change', (event) => {
-                handleImageFile(event.target.files[0]);
+                handleImageFiles(event.target.files); // Pass all selected files
             });
 
             // --- Click to select image via imagePreview area ---
@@ -167,30 +197,40 @@
 
                 const files = event.dataTransfer.files;
                 if (files && files.length > 0) {
-                    handleImageFile(files[0]); // Handle the first dropped file
+                    handleImageFiles(files); // Handle dropped files (plural)
                 }
             });
 
 
             convertButton.addEventListener('click', async () => {
-                const file = uploadedFile; // Use the stored uploadedFile
-                if (!file) {
-                    alert("Please upload or drop an image first.");
+                if (uploadedFiles.length === 0) { // Check if any files are uploaded
+                    alert("Please upload or drop image(s) first.");
                     return;
                 }
 
-                textOutput.value = "Processing... Please wait...";
-                try {
-                    const { data: { text } } = await Tesseract.recognize(
-                        file,
-                        'eng',
-                        { logger: m => console.log(m) }
-                    );
-                    textOutput.value = text;
+                textOutput.value = "Processing images... Please wait...\n\n"; // Updated processing message
+                let combinedText = ""; // To store text from all images
 
-                } catch (error) {
-                    console.error("OCR Error:", error);
-                    textOutput.value = "Error during OCR. Please try again or use a different image.";
+                for (const file of uploadedFiles) { // Loop through each uploaded file
+                    if (!file.type.startsWith('image/')) continue; // Skip non-image files (just in case)
+
+                    try {
+                        const { data: { text } } = await Tesseract.recognize(
+                            file,
+                            'eng',
+                            { logger: m => console.log(m) }
+                        );
+                        combinedText += `--- Text from ${file.name} ---\n${text}\n\n`; // Add filename as separator
+                    } catch (error) {
+                        console.error(`OCR Error for ${file.name}:`, error);
+                        combinedText += `--- Error during OCR for ${file.name} ---\nError details in console.\n\n`;
+                    }
+                }
+
+                textOutput.value = combinedText.trim(); // Set combined text to textarea, trim to remove extra whitespace at end
+
+                if (!textOutput.value.trim()) { // If after processing all images, no text was extracted (or all errors)
+                    textOutput.value = "No text extracted from the selected images or errors occurred. Check console for details.";
                 }
             });
 
@@ -210,6 +250,15 @@
                 } else {
                     alert('No text to copy.');
                 }
+            });
+
+            // --- Clear Button Functionality ---
+            clearButton.addEventListener('click', () => {
+                imagePreview.innerHTML = '<span>Drag and drop image(s) here or click to select</span>';
+                imagePreview.classList.remove('has-image');
+                textOutput.value = "";
+                uploadedFiles = [];
+                imageUpload.value = ""; // Reset file input to clear selected files
             });
 
         });
