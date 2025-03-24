@@ -520,13 +520,9 @@
         }
 
         .close-button {
-            text-align: left;
-            float: left;
-            width: 100%;
-            margin-bottom: 30px;
           background: none;
           border: none;
-           font-size: 24px;
+          font-size: 24px;
           cursor: pointer;
           color: var(--text-light); /* Use text color variable */
           padding: 5px 10px;
@@ -744,7 +740,7 @@
     </div>
 
     <div id="right-side-menu" class="right-side-menu">
-      <div class=" ">
+      <div class="menu-header">
         <button id="close-menu-btn" class="close-button" aria-label="Close Menu">
           <i class="fas fa-times"></i> <!-- Font Awesome Close Icon -->
         </button>
@@ -752,7 +748,6 @@
       <div class="menu-content">
         <!-- Menu content -->
         <ul>
-            
           <li>
             <button id="autoConvertButtonMenu" title="Enable Auto Convert" aria-label="Enable Auto Convert" style="display: flex; align-items: center; justify-content: flex-start; padding: 10px 0; font-size: 1.2rem; width: 100%; text-align: left; background: none; border: none; cursor: pointer; color: inherit;">
                 <i class="fas fa-power-off" id="autoConvertMenuIconOff" style="margin-right: 10px; display: inline-block;"></i>
@@ -828,6 +823,24 @@
             let uploadedFiles = [];
             let textContentOnly = "";
             let isAutoConvertEnabledState = false; // Track auto-convert state (initially off)
+
+            // --- Retrieve Auto Convert State from localStorage on page load ---
+            const savedAutoConvertState = localStorage.getItem('autoConvertEnabled');
+            if (savedAutoConvertState === 'true') {
+                isAutoConvertEnabledState = true; // Set state based on localStorage
+                autoConvertMenuIconOff.style.display = 'none'; // Update icons to reflect saved state
+                autoConvertMenuIconOn.style.display = 'inline-block';
+                autoConvertMenuIconOn.classList.add('menu-icon-active');
+                autoConvertButtonMenu.setAttribute('title', 'Disable Auto Convert');
+                autoConvertButtonMenu.setAttribute('aria-label', 'Disable Auto Convert');
+            } else {
+                isAutoConvertEnabledState = false; // Ensure default is off if not in localStorage or 'false'
+                autoConvertMenuIconOn.classList.remove('menu-icon-active'); // Ensure icons are correct if disabled
+                autoConvertMenuIconOn.style.display = 'none';
+                autoConvertMenuIconOff.style.display = 'inline-block';
+                autoConvertButtonMenu.setAttribute('title', 'Enable Auto Convert');
+                autoConvertButtonMenu.setAttribute('aria-label', 'Enable Auto Convert');
+            }
 
 
             // --- Function to Show Custom Alert ---
@@ -1017,11 +1030,12 @@
                 textContentOnly = ""; // Clear textContentOnly as well
             });
 
-            /* --- Auto Convert Menu Button Click Listener --- (NEW) */
+            /* --- Auto Convert Menu Button Click Listener --- (NEW - UPDATED for localStorage) */
             autoConvertButtonMenu.addEventListener('click', () => {
                 isAutoConvertEnabledState = !isAutoConvertEnabledState; // Toggle the state
 
                 if (isAutoConvertEnabledState) {
+                    localStorage.setItem('autoConvertEnabled', 'true'); // Save "ON" state to localStorage
                     autoConvertMenuIconOff.style.display = 'none'; // Hide OFF icon
                     autoConvertMenuIconOn.style.display = 'inline-block'; // Show ON icon
                     autoConvertMenuIconOn.classList.add('menu-icon-active'); // Add active class to ON icon
@@ -1029,6 +1043,7 @@
                     autoConvertButtonMenu.setAttribute('aria-label', 'Disable Auto Convert'); // Update aria-label
                     showCustomAlert('Auto Convert is now ON. Images will be converted automatically.'); // Optional alert
                 } else {
+                    localStorage.setItem('autoConvertEnabled', 'false'); // Save "OFF" state to localStorage
                     autoConvertMenuIconOn.classList.remove('menu-icon-active'); // Remove active class from ON icon
                     autoConvertMenuIconOn.style.display = 'none'; // Hide ON icon
                     autoConvertMenuIconOff.style.display = 'inline-block'; // Show OFF icon
