@@ -91,10 +91,10 @@
         }
 
 
-        #fileUploadSection, #imagePreview, #buttonContainer, #textOutputContainer { /* ... (section margin) ... */
+        #fileUploadSection, #buttonContainer, #textOutputContainer { /* ... (section margin) ... */
             margin-bottom: 35px;
         }
-
+        /* HIDE FILE UPLOAD SECTION ON MOBILE AND UP */
         #fileUploadSection { /* ... (fileUploadSection styles) ... */
             text-align: center;
         }
@@ -247,12 +247,16 @@
 
         #buttonContainer { /* ... (buttonContainer styles) ... */
             text-align: center;
+            display: flex; /* Enable flexbox for button container */
+            justify-content: center; /* Center buttons horizontally */
+            gap: 15px; /* Space between buttons */
+            flex-direction: row; /* Default to row layout */
         }
 
         #convertButton, #clearButton { /* ... (convertButton, clearButton styles) ... */
             padding: 14px 30px;
             cursor: pointer;
-            margin: 0 15px;
+            margin: 0; /* Remove default margins, spacing handled by container gap */
             border: none;
             border-radius: 10px;
             background-color: var(--primary-color);
@@ -321,6 +325,7 @@
         @media (max-width: 576px) {
           #textOutputContainer {
             margin-right: 15px;
+            margin-left: 15px; /* Added left margin for mobile text output */
           }
         }
 
@@ -520,6 +525,10 @@
         }
 
         .close-button {
+            display: flex;
+            width: 100%;
+            margin-bottom: 20px;
+            text-align: start;
           background: none;
           border: none;
           font-size: 24px;
@@ -682,8 +691,20 @@
         }
 
 
-        /* --- Media Query for responsiveness (Optional - adjust breakpoints as needed) --- */
+        /* --- Media Queries for Responsiveness --- */
         @media (max-width: 768px) {
+          #imagePreview {
+            display: none; /* Hide drag & drop on mobile */
+          }
+          #buttonContainer {
+            flex-direction: column; /* Stack buttons on mobile */
+            align-items: stretch; /* Make buttons full width */
+          }
+          #convertButton, #clearButton {
+            margin-bottom: 10px; /* Add margin between stacked buttons */
+            width: 100%; /* Full width buttons on mobile */
+            display: flex; /* Ensure spinner and text are aligned in full-width button */
+          }
           .right-side-menu {
             width: 80%; /* Make menu wider on smaller screens */
           }
@@ -714,7 +735,7 @@
             <i class="fas fa-image"></i>
             <span>Drag and drop image(s) here or <a href="javascript:void(0);" onclick="document.getElementById('imageUpload').click();">click to select</a></span>
         </div>
-
+        <br/> <br/>
         <div id="buttonContainer">
             <button id="convertButton">
                 <i class="fas fa-magic"></i> Convert to Text
@@ -944,7 +965,8 @@
                 }
 
                 textOutput.value = "Processing images... Please wait...\n\n";
-                convertButtonSpinner.style.display = 'inline-block';
+                convertButtonSpinner.style.display = 'inline-block'; // Make sure spinner is visible
+                convertButtonSpinner.style.display = 'inline-block !important'; // Added !important to ensure visibility
                 convertButton.disabled = true;
                 textContentOnly = ""; // Reset textContentOnly for new conversion
 
