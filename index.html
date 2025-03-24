@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Text Scanner</title>
+    <title>Text Scanner - Mobile Optimized - No Drag & Drop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -65,7 +65,6 @@
             box-shadow: var(--shadow-light);
             margin-bottom: 30px;
             transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-            position: relative; /* For positioning menu button */
         }
         .dark-mode header { /* ... (unchanged dark mode header styles) ... */
             background-color: var(--header-bg-dark);
@@ -450,159 +449,36 @@
         }
 
 
-        /* --- Dark Mode Toggle Button Styles (MOVED TO SIDE MENU, SOME STYLES ADJUSTED) --- */
-        /* --- Menu Button Styles --- */
-        #menuButton {
+        /* --- Dark Mode Toggle Button Styles --- */
+        #darkModeToggle { /* ... (unchanged darkModeToggle styles) ... */
+            float: right;
             background: none;
             border: none;
-            color: var(--text-light); /* Inherit text color */
+            color: var(--text-light);
             cursor: pointer;
-            font-size: 1.75rem; /* Same size as old toggle */
+            font-size: 1.75rem;
             opacity: 0.9;
             transition: opacity 0.2s ease, color 0.3s ease, transform 0.2s ease;
-            padding: 12px; /* Adjust padding as needed */
-            border-radius: 12px; /* Match header buttons */
+            padding: 12px;
+            border-radius: 12px;
             outline: none;
         }
 
-        #menuButton:hover, #menuButton:focus {
+        #darkModeToggle:hover, #darkModeToggle:focus { /* ... (unchanged darkModeToggle hover styles) ... */
             opacity: 1;
             color: var(--primary-color);
             transform: scale(1.1);
         }
-        .dark-mode #menuButton {
+        .dark-mode #darkModeToggle { /* ... (unchanged dark mode darkModeToggle styles) ... */
             color: var(--text-dark);
         }
-        .dark-mode #menuButton:hover, .dark-mode #menuButton:focus {
+        .dark-mode #darkModeToggle:hover, .dark-mode #darkModeToggle:focus { /* ... (unchanged dark mode darkModeToggle hover styles) ... */
             color: var(--primary-color-dark-mode);
         }
 
-        #menuButton i.fa-times { /* Style for the "X" icon when menu is open */
-            display: none; /* Initially hidden */
+        #darkModeToggle i { /* ... (unchanged darkModeToggle i styles) ... */
+            pointer-events: none;
         }
-
-
-        /* --- Side Menu Bar Styles --- */
-        .side-menu-bar {
-            position: fixed; /* Fixed to viewport */
-            top: 0;
-            right: 0;
-            height: 100%; /* Full viewport height */
-            width: 250px; /* Adjust side menu width */
-            background-color: var(--header-bg-light); /* Header background color */
-            color: var(--header-text-light);         /* Header text color */
-            box-shadow: var(--shadow-dark); /* Use dark shadow even in light mode for side menu */
-            padding: 20px;
-            z-index: 20; /* Higher than container and header */
-            transform: translateX(100%); /* Initially hidden off-screen to the right */
-            transition: transform 0.3s ease;
-            overflow-y: auto; /* Scroll if content overflows */
-        }
-        .dark-mode .side-menu-bar {
-            background-color: var(--header-bg-dark);
-            color: var(--header-text-dark);
-            box-shadow: var(--shadow-light); /* Light shadow in dark mode */
-        }
-
-        .side-menu-bar.side-menu-open {
-            transform: translateX(0); /* Slide in from right */
-        }
-
-        .side-menu-bar .side-menu-content {
-            padding: 15px 0; /* Adjust vertical padding inside content area */
-        }
-
-
-        .side-menu-bar .menu-item {
-            margin-bottom: 15px; /* Spacing between menu items */
-        }
-
-        /* Style for Dark Mode Toggle INSIDE Side Menu */
-        .side-menu-bar #darkModeToggle { /* Re-use or adjust styles from before, ensure specificity */
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            background: none;
-            border: none;
-            color: inherit;
-            cursor: pointer;
-            font-size: 1rem;
-            opacity: 1;
-            transition: color 0.3s ease, transform 0.2s ease, background-color 0.3s ease; /* Added background-color transition */
-            padding: 10px 15px;
-            border-radius: 8px;
-            outline: none;
-            width: 100%;
-            text-align: left;
-        }
-
-        .side-menu-bar #darkModeToggle:hover, .side-menu-bar #darkModeToggle:focus {
-            background-color: var(--accent-color-light); /* Light accent on hover */
-            color: var(--primary-color);
-            transform: scale(1.02);
-        }
-        .dark-mode .side-menu-bar #darkModeToggle:hover, .dark-mode .side-menu-bar #darkModeToggle:focus {
-            background-color: var(--accent-color-dark); /* Dark accent on dark mode hover */
-            color: var(--primary-color-dark-mode);
-        }
-
-        .side-menu-bar #darkModeToggle span {
-            margin-left: 10px;
-        }
-
-        /* Style for Radio Button and Label in Side Menu */
-        .side-menu-bar .menu-item label {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            font-size: 1rem;
-            color: inherit; /* Inherit text color from side menu */
-        }
-
-        .side-menu-bar .menu-item input[type="radio"] {
-            margin-right: 10px;
-            appearance: none; /* Remove default radio button styling */
-            -webkit-appearance: none; /* For Safari */
-            -moz-appearance: none; /* For Firefox */
-            width: 16px;
-            height: 16px;
-            border: 2px solid var(--border-light); /* Border color */
-            border-radius: 50%;
-            background-color: var(--input-light); /* Background color */
-            cursor: pointer;
-            transition: background-color 0.2s ease, border-color 0.2s ease;
-            position: relative; /* For custom checked state */
-        }
-        .dark-mode .side-menu-bar .menu-item input[type="radio"] {
-            border-color: var(--border-dark);
-            background-color: var(--input-dark);
-        }
-
-        .side-menu-bar .menu-item input[type="radio"]:checked {
-            background-color: var(--primary-color); /* Primary color when checked */
-            border-color: var(--primary-color);
-        }
-        .dark-mode .side-menu-bar .menu-item input[type="radio"]:checked {
-            background-color: var(--primary-color-dark-mode);
-            border-color: var(--primary-color-dark-mode);
-        }
-
-        .side-menu-bar .menu-item input[type="radio"]:checked::after { /* Inner circle when checked */
-            content: '';
-            display: block;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 8px;
-            height: 8px;
-            background-color: var(--bg-light); /* Inner circle color (light mode bg) */
-            border-radius: 50%;
-        }
-        .dark-mode .side-menu-bar .menu-item input[type="radio"]:checked::after { /* Inner circle in dark mode */
-            background-color: var(--bg-dark); /* Inner circle color (dark mode bg) */
-        }
-
 
         /* --- Media Queries for Responsiveness --- */
 
@@ -690,7 +566,7 @@
             header h2 {
                 font-size: 1.3rem;
             }
-            #menuButton {
+            #darkModeToggle {
                 font-size: 1.6rem;
                 padding: 5px;
                 top: 10px;
@@ -720,185 +596,12 @@
         }
 
 
-    /* --- Menu Button Styles --- */
-    #menuButton {
-        float: right;
-        background: none;
-        border: none;
-        color: var(--text-light); /* Inherit text color */
-        cursor: pointer;
-        font-size: 1.75rem; /* Same size as old toggle */
-        opacity: 0.9;
-        transition: opacity 0.2s ease, color 0.3s ease, transform 0.2s ease;
-        padding: 12px; /* Adjust padding as needed */
-        border-radius: 12px; /* Match header buttons */
-        outline: none;
-    }
-
-    #menuButton:hover, #menuButton:focus {
-        opacity: 1;
-        color: var(--primary-color);
-        transform: scale(1.1);
-    }
-    .dark-mode #menuButton {
-        color: var(--text-dark);
-    }
-    .dark-mode #menuButton:hover, .dark-mode #menuButton:focus {
-        color: var(--primary-color-dark-mode);
-    }
-
-    #menuButton i.fa-times { /* Style for the "X" icon when menu is open */
-        display: none; /* Initially hidden */
-    }
-
-
-    /* --- Side Menu Bar Styles --- */
-    .side-menu-bar {
-        position: fixed; /* Fixed to viewport */
-        top: 0;
-        right: 0;
-        height: 100%; /* Full viewport height */
-        width: 250px; /* Adjust side menu width */
-        background-color: var(--header-bg-light); /* Header background color */
-        color: var(--header-text-light);         /* Header text color */
-        box-shadow: var(--shadow-dark); /* Use dark shadow even in light mode for side menu */
-        padding: 20px;
-        z-index: 20; /* Higher than container and header */
-        transform: translateX(100%); /* Initially hidden off-screen to the right */
-        transition: transform 0.3s ease;
-        overflow-y: auto; /* Scroll if content overflows */
-    }
-    .dark-mode .side-menu-bar {
-        background-color: var(--header-bg-dark);
-        color: var(--header-text-dark);
-        box-shadow: var(--shadow-light); /* Light shadow in dark mode */
-    }
-
-    .side-menu-bar.side-menu-open {
-        transform: translateX(0); /* Slide in from right */
-    }
-
-    .side-menu-bar .side-menu-content {
-        padding: 15px 0; /* Adjust vertical padding inside content area */
-    }
-
-
-    .side-menu-bar .menu-item {
-        margin-bottom: 15px; /* Spacing between menu items */
-    }
-
-    /* Style for Dark Mode Toggle INSIDE Side Menu */
-    .side-menu-bar #darkModeToggle { /* Re-use or adjust styles from before, ensure specificity */
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        background: none;
-        border: none;
-        color: inherit;
-        cursor: pointer;
-        font-size: 1rem;
-        opacity: 1;
-        transition: color 0.3s ease, transform 0.2s ease, background-color 0.3s ease; /* Added background-color transition */
-        padding: 10px 15px;
-        border-radius: 8px;
-        outline: none;
-        width: 100%;
-        text-align: left;
-    }
-
-    .side-menu-bar #darkModeToggle:hover, .side-menu-bar #darkModeToggle:focus {
-        background-color: var(--accent-color-light); /* Light accent on hover */
-        color: var(--primary-color);
-        transform: scale(1.02);
-    }
-    .dark-mode .side-menu-bar #darkModeToggle:hover, .dark-mode .side-menu-bar #darkModeToggle:focus {
-        background-color: var(--accent-color-dark); /* Dark accent on dark mode hover */
-        color: var(--primary-color-dark-mode);
-    }
-
-    .side-menu-bar #darkModeToggle span {
-        margin-left: 10px;
-    }
-
-    /* Style for Radio Button and Label in Side Menu */
-    .side-menu-bar .menu-item label {
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        font-size: 1rem;
-        color: inherit; /* Inherit text color from side menu */
-    }
-
-    .side-menu-bar .menu-item input[type="radio"] {
-        margin-right: 10px;
-        appearance: none; /* Remove default radio button styling */
-        -webkit-appearance: none; /* For Safari */
-        -moz-appearance: none; /* For Firefox */
-        width: 16px;
-        height: 16px;
-        border: 2px solid var(--border-light); /* Border color */
-        border-radius: 50%;
-        background-color: var(--input-light); /* Background color */
-        cursor: pointer;
-        transition: background-color 0.2s ease, border-color 0.2s ease;
-        position: relative; /* For custom checked state */
-    }
-    .dark-mode .side-menu-bar .menu-item input[type="radio"] {
-        border-color: var(--border-dark);
-        background-color: var(--input-dark);
-    }
-
-    .side-menu-bar .menu-item input[type="radio"]:checked {
-        background-color: var(--primary-color); /* Primary color when checked */
-        border-color: var(--primary-color);
-    }
-    .dark-mode .side-menu-bar .menu-item input[type="radio"]:checked {
-        background-color: var(--primary-color-dark-mode);
-        border-color: var(--primary-color-dark-mode);
-    }
-
-    .side-menu-bar .menu-item input[type="radio"]:checked::after { /* Inner circle when checked */
-        content: '';
-        display: block;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 8px;
-        height: 8px;
-        background-color: var(--bg-light); /* Inner circle color (light mode bg) */
-        border-radius: 50%;
-    }
-    .dark-mode .side-menu-bar .menu-item input[type="radio"]:checked::after { /* Inner circle in dark mode */
-        background-color: var(--bg-dark); /* Inner circle color (dark mode bg) */
-        }
-
-
     </style>
 </head>
 <body class="dark-mode">
-
-    <button id="menuButton" title="Open Menu" aria-label="Open Menu">
-        <i class="fas fa-bars"></i> <i class="fas fa-times" style="display: none;"></i> <!-- Bars icon for closed, Times for open -->
-    </button>
-
-    <div id="sideMenuBar" class="side-menu-bar">
-        <div class="side-menu-content">
-            <div class="menu-item">
-                <button id="darkModeToggle" title="Toggle Dark Mode" aria-label="Toggle Dark Mode">
-                    <i class="fas fa-sun light-mode-icon"></i><i class="fas fa-moon dark-mode-icon" style="display: none;"></i>
-                    <span>Dark Mode</span>
-                </button>
-            </div>
-            <div class="menu-item">
-                <label for="autoConvertRadio">
-                    <input type="radio" id="autoConvertRadio" name="menuOptions" value="autoConvert">
-                    <span>Auto Convert</span>
-                </label>
-            </div>
-            <!-- You can add more menu items here -->
-        </div>
-    </div>
+          <button id="darkModeToggle" title="Toggle Dark Mode" aria-label="Toggle Dark Mode">
+            <i class="fas fa-sun light-mode-icon"></i><i class="fas fa-moon dark-mode-icon" style="display: none;"></i>
+        </button>
 
     <div class="container">
 
@@ -943,30 +646,26 @@
 
     <script src="https://unpkg.com/tesseract.js@v5.x/dist/tesseract.min.js"></script>
     <script>
-        /* --- Dark Mode JavaScript (Modified for Side Menu) --- */
+        /* --- Dark Mode JavaScript --- */
         const darkModeToggle = document.getElementById('darkModeToggle');
         const lightModeIcon = darkModeToggle.querySelector('.fa-sun');
         const darkModeIcon = darkModeToggle.querySelector('.fa-moon');
-        const menuButton = document.getElementById('menuButton');
-        const sideMenuBar = document.getElementById('sideMenuBar'); // Get SIDE menu bar element
-        const menuIconBars = menuButton.querySelector('.fa-bars');
-        const menuIconTimes = menuButton.querySelector('.fa-times');
 
-        function enableDarkMode() { /* ... (unchanged enableDarkMode function) ... */
+        function enableDarkMode() {
             document.body.classList.add('dark-mode');
             localStorage.setItem('darkMode', 'enabled');
             lightModeIcon.style.display = 'none';
             darkModeIcon.style.display = 'inline-block';
         }
 
-        function disableDarkMode() { /* ... (unchanged disableDarkMode function) ... */
+        function disableDarkMode() {
             document.body.classList.remove('dark-mode');
             localStorage.setItem('darkMode', 'disabled');
             darkModeIcon.style.display = 'none';
             lightModeIcon.style.display = 'inline-block';
         }
 
-        // Check for saved preference on page load (unchanged)
+        // Check for saved preference on page load
         if (localStorage.getItem('darkMode') === 'enabled') {
             enableDarkMode();
         } else if (localStorage.getItem('darkMode') === 'disabled') {
@@ -977,7 +676,7 @@
             }
         }
 
-        darkModeToggle.addEventListener('click', () => { /* ... (unchanged dark mode toggle logic) ... */
+        darkModeToggle.addEventListener('click', () => {
             if (document.body.classList.contains('dark-mode')) {
                 disableDarkMode();
             } else {
@@ -985,19 +684,200 @@
             }
         });
 
-        menuButton.addEventListener('click', () => {
-            sideMenuBar.classList.toggle('side-menu-open'); // Toggle side-menu-open class on SIDE menu bar
-            menuIconBars.style.display = sideMenuBar.classList.contains('side-menu-open') ? 'none' : 'inline-block';
-            menuIconTimes.style.display = sideMenuBar.classList.contains('side-menu-open') ? 'inline-block' : 'none';
-        });
 
-        // Close side menu when clicking outside
-        document.addEventListener('click', (event) => {
-            if (!sideMenuBar.contains(event.target) && !menuButton.contains(event.target) && sideMenuBar.classList.contains('side-menu-open')) {
-                sideMenuBar.classList.remove('side-menu-open');
-                menuIconBars.style.display = 'inline-block';
-                menuIconTimes.style.display = 'none';
+        /* --- JavaScript Code (modified for Custom Alerts, Copy without Filenames, and Download) --- */
+        document.addEventListener('DOMContentLoaded', () => {
+            const imageUpload = document.getElementById('imageUpload');
+            const imagePreview = document.getElementById('imagePreview');
+            const convertButton = document.getElementById('convertButton');
+            const clearButton = document.getElementById('clearButton');
+            const textOutput = document.getElementById('textOutput');
+            const copyButton = document.getElementById('copyButton');
+            const downloadButton = document.getElementById('downloadButton'); // Get download button
+            const customAlert = document.getElementById('customAlert');
+            const fileUploadStatus = document.getElementById('fileUploadStatus');
+            const convertButtonSpinner = document.getElementById('convertButtonSpinner');
+
+            let uploadedFiles = [];
+            let textContentOnly = ""; // Variable to store only the text content
+
+            // --- Function to Show Custom Alert ---
+            function showCustomAlert(message) {
+                customAlert.textContent = message;
+                customAlert.classList.add('show');
+                setTimeout(() => {
+                    customAlert.classList.remove('show');
+                }, 3000);
             }
+
+
+            // --- Function to handle image loading and preview (No changes here) ---
+            const handleImageFiles = (files) => {
+                uploadedFiles = Array.from(files);
+                imagePreview.innerHTML = '';
+                if (files && files.length > 0) {
+                    if (files.length === 1) {
+                        const file = files[0];
+                            if (file.type.startsWith('image/')) {
+                            const reader = new FileReader();
+                            reader.onload = (e) => {
+                                imagePreview.innerHTML = `<img src="${e.target.result}" alt="Uploaded Image">`;
+                            };
+                            reader.readAsDataURL(file);
+                            fileUploadStatus.textContent = "1 file selected"; // Update status for single file
+                        } else {
+                            imagePreview.innerHTML = '<i class="fas fa-image"></i><span>Drag and drop image(s) here or click to select</span>';
+                            uploadedFiles = [];
+                            showCustomAlert("Please upload valid image files.");
+                            fileUploadStatus.textContent = "No files selected"; // Reset status on error
+                        }
+                    } else {
+                        let previewContent = '<b>Multiple images selected:</b><br>';
+                        for (const file of files) {
+                            if (file.type.startsWith('image/')) {
+                                previewContent += `${file.name}<br>`;
+                            }
+                        }
+                        imagePreview.innerHTML = previewContent || '<i class="fas fa-image"></i><span>Drag and drop image(s) here or click to select</span>';
+                        if (previewContent === '<b>Multiple images selected:</b><br>') {
+                            uploadedFiles = [];
+                            showCustomAlert("Please upload valid image files.");
+                            imagePreview.innerHTML = '<i class="fas fa-image"></i><span>Drag and drop image(s) here or click to select</span>';
+                            fileUploadStatus.textContent = "No files selected"; // Reset status on error
+                        } else {
+                            fileUploadStatus.textContent = `${files.length} files selected`; // Update status for multiple files
+                        }
+
+                    }
+                } else {
+                    imagePreview.innerHTML = '<i class="fas fa-image"></i><span>Drag and drop image(s) here or click to select</span>';
+                    uploadedFiles = [];
+                    fileUploadStatus.textContent = "No files selected"; // Reset status when no files
+                }
+            };
+
+
+            imageUpload.addEventListener('change', (event) => {
+                handleImageFiles(event.target.files);
+            });
+
+            imagePreview.addEventListener('click', () => {
+                imageUpload.click();
+            });
+
+            imagePreview.addEventListener('dragover', (event) => {
+                event.preventDefault();
+                imagePreview.classList.add('dragover');
+            });
+
+            imagePreview.addEventListener('dragleave', () => {
+                imagePreview.classList.remove('dragover');
+            });
+
+            imagePreview.addEventListener('drop', (event) => {
+                event.preventDefault();
+                imagePreview.classList.remove('dragover');
+
+                const files = event.dataTransfer.files;
+                if (files && files.length > 0) {
+                    handleImageFiles(files);
+                }
+            });
+
+            convertButton.addEventListener('click', async () => {
+                if (uploadedFiles.length === 0) {
+                    showCustomAlert("Please upload or drop image(s) first.");
+                    return;
+                }
+
+                textOutput.value = "Processing images... Please wait...\n\n";
+                convertButtonSpinner.style.display = 'inline-block';
+                convertButton.disabled = true;
+                textContentOnly = ""; // Reset textContentOnly for new conversion
+
+                let combinedText = "";
+
+
+                for (const file of uploadedFiles) {
+                    if (!file.type.startsWith('image/')) continue;
+
+                    try {
+                        const { data: { text } } = await Tesseract.recognize(
+                            file,
+                            'eng',
+                            { logger: m => console.log(m) }
+                        );
+                        const header = `--- Text from ${file.name} ---\n`; // Keep header for display
+                        combinedText += header + text + "\n\n"; // Add header to displayed text
+                        textContentOnly += text + "\n\n"; // Add only text content for copying
+                    } catch (error) {
+                        console.error(`OCR Error for ${file.name}:`, error);
+                        const errorHeader = `--- Error during OCR for ${file.name} ---\n`; // Keep error header for display
+                        combinedText += errorHeader + "Error details in console.\n\n"; // Add error header to displayed text
+                        textContentOnly += "Error during OCR. See console.\n\n"; // Add error message for copy (optional, can be empty if you don't want to copy error messages)
+                        showCustomAlert(`OCR Error for ${file.name}. See console for details.`);
+                    }
+                }
+
+                textOutput.value = combinedText.trim();
+
+                convertButtonSpinner.style.display = 'none';
+                convertButton.disabled = false;
+
+                if (!textOutput.value.trim()) {
+                    textOutput.value = "No text extracted from the selected images or errors occurred. Check console for details.";
+                    showCustomAlert("No text extracted or errors occurred. Check console.");
+                }
+            });
+
+            copyButton.addEventListener('click', async () => {
+                // Use textContentOnly for copying instead of textOutput.value
+                const textToCopy = textContentOnly.trim();
+
+                if (textToCopy) {
+                    try {
+                        await navigator.clipboard.writeText(textToCopy);
+                        showCustomAlert('Text copied to clipboard!');
+                    } catch (err) {
+                        console.error('Failed to copy text: ', err);
+                        showCustomAlert('Failed to copy text. Please try again.');
+                    }
+                } else {
+                    showCustomAlert('No text to copy.');
+                }
+            });
+
+            downloadButton.addEventListener('click', () => {
+                const textToDownload = textContentOnly.trim();
+
+                if (textToDownload) {
+                    const blob = new Blob([textToDownload], { type: 'text/plain' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'extracted_text.txt'; // Default filename
+                    document.body.appendChild(a); // Append to the document
+                    a.click(); // Programmatically click the link
+                    document.body.removeChild(a); // Clean up
+                    URL.revokeObjectURL(url); // Revoke the URL
+                    showCustomAlert('Text downloaded as extracted_text.txt!');
+                } else {
+                    showCustomAlert('No text to download.');
+                }
+            });
+
+
+            clearButton.addEventListener('click', () => {
+                imagePreview.innerHTML = '<i class="fas fa-image"></i><span>Drag and drop image(s) here or <a href="javascript:void(0);" onclick="document.getElementById(\'imageUpload\').click();" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">click to select</a></span>';
+                imagePreview.classList.remove('dragover');
+                textOutput.value = "";
+                uploadedFiles = [];
+                imageUpload.value = "";
+                fileUploadStatus.textContent = "";
+                textContentOnly = ""; // Clear textContentOnly as well
+            });
+
+
         });
     </script>
 
