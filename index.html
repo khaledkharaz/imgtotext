@@ -10,26 +10,26 @@
     <style>
         /* ---  Responsive & Restyled CSS Design - LIGHT & DARK MODE - Senior UX/UI Version - RESPONSIVE & MOBILE OPTIMIZED - NO DRAG & DROP ON MOBILE --- */
         :root {
-            /* --- Light Mode Palette --- (unchanged) ... */
-            --primary-color: #6366f1;
-            --primary-color-dark: #4f46e5;
+            /* --- Light Mode Palette --- (restyled) ... */
+            --primary-color: #7c3aed; /* Updated primary color - Indigo 500 */
+            --primary-color-dark: #6d28d9; /* Darker shade of Indigo */
             --secondary-color: #dc2626;
             --bg-light: #f9fafb;
             --text-light: #1e293b;
             --input-light: #fff;
             --border-light: #e5e7eb;
-            --shadow-light: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.02);
+            --shadow-light: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.01); /* Softer shadow - reduced opacity */
             --font-family: 'Nunito Sans', sans-serif;
             --header-bg-light: #fff;
             --header-text-light: var(--text-light);
             --accent-color-light: #bae6fd;
 
-            /* --- Dark Mode Palette --- (unchanged) ... */
+            /* --- Dark Mode Palette --- (restyled - shadows slightly softer) ... */
             --bg-dark: #1f2937;
             --text-dark: #f0f0f0;
             --input-dark: #374151;
             --border-dark: #4b5563;
-            --shadow-dark: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.06);
+            --shadow-dark: 0 1px 3px rgba(0,0,0,0.10), 0 1px 2px rgba(0,0,0,0.04); /* Softer shadow - reduced opacity */
             --primary-color-dark-mode: #93c5fd;
             --primary-color-dark-mode-darker: #60a5fa;
             --secondary-color-dark-mode: #fca5a5;
@@ -38,68 +38,46 @@
             --accent-color-dark: #38bdf8;
         }
 
-        body { /* ... (unchanged body styles) ... */
+        body { /* ... (body styles - font-size and line-height adjusted, background texture added) ... */
             font-family: var(--font-family);
             margin: 0;
             padding: 0;
             background-color: var(--bg-light);
             color: var(--text-light);
-            line-height: 1.7;
+            line-height: 1.6; /* Adjusted line height for better readability */
             -webkit-font-smoothing: antialiased;
             transition: background-color 0.3s ease, color 0.3s ease;
             padding-top: 15px;
+            font-size: 1rem; /* Adjusted base font size */
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f3f4f6' fill-opacity='0.24'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4H6zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); /* Subtle background texture for light mode */
         }
 
-        body.dark-mode { /* ... (unchanged dark mode body styles) ... */
+        body.dark-mode { /* ... (dark mode body styles - background texture added) ... */
             background-color: var(--bg-dark);
             color: var(--text-dark);
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234b5563' fill-opacity='0.24'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4H6zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); /* Subtle background texture for dark mode */
         }
 
-        header { /* ... (unchanged header styles) ... */
-            background-color: var(--header-bg-light);
-            color: var(--header-text-light);
-            padding: 20px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: var(--shadow-light);
-            margin-bottom: 30px;
-            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-        }
-        .dark-mode header { /* ... (unchanged dark mode header styles) ... */
-            background-color: var(--header-bg-dark);
-            color: var(--header-text-dark);
-            box-shadow: var(--shadow-dark);
-        }
-
-        header h2 { /* ... (unchanged header h2 styles) ... */
-            margin: 0;
-            font-weight: 700;
-            font-size: 1.5rem;
-            letter-spacing: -0.025em;
-        }
-        header h2 a { /* ... (unchanged header a styles) ... */
-            color: inherit;
-            text-decoration: none;
-        }
+        /* --- Removed Header Styles --- */
 
 
-        .container { /* ... (unchanged container styles) ... */
+        .container { /* ... (container styles - border-radius increased) ... */
             max-width: 960px;
             margin: 0 auto;
             padding: 40px;
             background-color: var(--bg-light);
-            border-radius: 12px;
+            border-radius: 16px; /* Increased border-radius for softer corners */
             box-shadow: var(--shadow-light);
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            position: relative; /* For positioning menu button  */
         }
 
-        .dark-mode .container { /* ... (unchanged dark mode container styles) ... */
+        .dark-mode .container { /* ... (dark mode container styles) ... */
             background-color: var(--bg-dark);
             box-shadow: var(--shadow-dark);
         }
 
-        h1 { /* ... (unchanged h1 styles) ... */
+        h1 { /* ... (h1 styles) ... */
             text-align: center;
             margin-bottom: 40px;
             color: var(--primary-color);
@@ -108,20 +86,20 @@
             letter-spacing: -0.05em;
         }
 
-        .dark-mode h1 { /* ... (unchanged dark mode h1 styles) ... */
+        .dark-mode h1 { /* ... (dark mode h1 styles) ... */
             color: var(--primary-color-dark-mode);
         }
 
 
-        #fileUploadSection, #imagePreview, #buttonContainer, #textOutputContainer { /* ... (unchanged section margin) ... */
+        #fileUploadSection, #imagePreview, #buttonContainer, #textOutputContainer { /* ... (section margin) ... */
             margin-bottom: 35px;
         }
 
-        #fileUploadSection { /* ... (unchanged fileUploadSection styles) ... */
+        #fileUploadSection { /* ... (fileUploadSection styles) ... */
             text-align: center;
         }
 
-        #fileUploadSection button { /* ... (unchanged fileUploadSection button styles) ... */
+        #fileUploadSection button { /* ... (fileUploadSection button styles) ... */
             padding: 14px 30px;
             cursor: pointer;
             border: 2px solid var(--primary-color);
@@ -135,7 +113,7 @@
             outline: none;
         }
 
-        #fileUploadSection button:hover, #fileUploadSection button:focus { /* ... (unchanged fileUploadSection button hover styles) ... */
+        #fileUploadSection button:hover, #fileUploadSection button:focus { /* ... (fileUploadSection button hover styles) ... */
             background-color: var(--primary-color);
             color: var(--bg-light);
             transform: scale(1.05);
@@ -143,25 +121,25 @@
             border-color: var(--primary-color-dark);
         }
 
-        .dark-mode #fileUploadSection button { /* ... (unchanged dark mode fileUploadSection button styles) ... */
+        .dark-mode #fileUploadSection button { /* ... (dark mode fileUploadSection button styles) ... */
             background-color: var(--input-dark);
             color: var(--primary-color-dark-mode);
             border-color: var(--primary-color-dark-mode);
             box-shadow: var(--shadow-dark);
         }
 
-        .dark-mode #fileUploadSection button:hover, .dark-mode #fileUploadSection button:focus { /* ... (unchanged dark mode fileUploadSection button hover styles) ... */
+        .dark-mode #fileUploadSection button:hover, .dark-mode #fileUploadSection button:focus { /* ... (dark mode fileUploadSection button hover styles) ... */
             background-color: var(--primary-color-dark-mode);
             color: var(--bg-dark);
             border-color: var(--primary-color-dark-mode-darker);
         }
 
 
-        #imageUpload { /* ... (unchanged imageUpload styles) ... */
+        #imageUpload { /* ... (imageUpload styles) ... */
             display: none;
         }
 
-        #imagePreview { /* ... (unchanged imagePreview styles - for desktop) ... */
+        #imagePreview { /* ... (imagePreview styles - for desktop) ... */
             max-width: 100%;
             height: auto;
             min-height: 200px;
@@ -181,24 +159,24 @@
             overflow: hidden;
         }
 
-        .dark-mode #imagePreview { /* ... (unchanged dark mode imagePreview styles) ... */
+        .dark-mode #imagePreview { /* ... (dark mode imagePreview styles) ... */
             border-color: var(--border-dark);
             background-color: var(--input-dark);
             box-shadow: var(--shadow-dark);
         }
 
 
-        #imagePreview.dragover { /* ... (unchanged imagePreview dragover styles) ... */
+        #imagePreview.dragover { /* ... (imagePreview dragover styles) ... */
             border-color: var(--primary-color-dark);
             background-color: rgba(var(--primary-color-rgb), 0.08);
         }
-        .dark-mode #imagePreview.dragover { /* ... (unchanged dark mode imagePreview dragover styles) ... */
+        .dark-mode #imagePreview.dragover { /* ... (dark mode imagePreview dragover styles) ... */
             border-color: var(--primary-color-dark-mode-darker);
             background-color: rgba(91, 192, 222, 0.1);
         }
 
 
-        #imagePreview.dragover::before { /* ... (unchanged imagePreview dragover::before styles) ... */
+        #imagePreview.dragover::before { /* ... (imagePreview dragover::before styles) ... */
             content: "";
             position: absolute;
             top: 0;
@@ -210,12 +188,12 @@
             z-index: 1;
             pointer-events: none;
         }
-        .dark-mode #imagePreview.dragover::before { /* ... (unchanged dark mode imagePreview dragover::before styles) ... */
+        .dark-mode #imagePreview.dragover::before { /* ... (dark mode imagePreview dragover::before styles) ... */
             background-color: rgba(var(--primary-color-dark-mode-rgb), 0.2);
         }
 
 
-        #imagePreview img { /* ... (unchanged imagePreview img styles) ... */
+        #imagePreview img { /* ... (imagePreview img styles) ... */
             max-width: 100%;
             height: auto;
             display: block;
@@ -224,54 +202,54 @@
             box-shadow: var(--shadow-light);
             transition: box-shadow 0.3s ease;
         }
-        .dark-mode #imagePreview img { /* ... (unchanged dark mode imagePreview img styles) ... */
+        .dark-mode #imagePreview img { /* ... (dark mode imagePreview img styles) ... */
             box-shadow: var(--shadow-dark);
         }
 
 
-        #imagePreview i.fa-image { /* ... (unchanged imagePreview i.fa-image styles) ... */
+        #imagePreview i.fa-image { /* ... (imagePreview i.fa-image styles) ... */
             font-size: 3rem;
             color: var(--primary-color);
             margin-bottom: 15px;
             opacity: 0.9;
             transition: color 0.3s ease;
         }
-        .dark-mode #imagePreview i.fa-image { /* ... (unchanged dark mode imagePreview i.fa-image styles) ... */
+        .dark-mode #imagePreview i.fa-image { /* ... (dark mode imagePreview i.fa-image styles) ... */
             color: var(--primary-color-dark-mode);
         }
 
-        #imagePreview span { /* ... (unchanged imagePreview span styles) ... */
+        #imagePreview span { /* ... (imagePreview span styles) ... */
             font-size: 1.1rem;
             color: var(--text-light);
             opacity: 0.8;
         }
-        .dark-mode #imagePreview span { /* ... (unchanged dark mode imagePreview span styles) ... */
+        .dark-mode #imagePreview span { /* ... (dark mode imagePreview span styles) ... */
             color: var(--text-dark);
         }
 
-        #imagePreview a { /* ... (unchanged imagePreview a styles) ... */
+        #imagePreview a { /* ... (imagePreview a styles) ... */
             color: var(--primary-color);
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s ease;
         }
-        #imagePreview a:hover, #imagePreview a:focus { /* ... (unchanged imagePreview a hover styles) ... */
+        #imagePreview a:hover, #imagePreview a:focus { /* ... (imagePreview a hover styles) ... */
             color: var(--primary-color-dark);
             text-decoration: underline;
         }
-        .dark-mode #imagePreview a { /* ... (unchanged dark mode imagePreview a styles) ... */
-            color: var(--primary-color-dark-mode);
+        .dark-mode #imagePreview a { /* ... (dark mode imagePreview a styles) ... */
+            color: var(--primary-color-dark-mode); /* Changed to primary-color-dark-mode */
         }
-        .dark-mode #imagePreview a:hover, .dark-mode #imagePreview a:focus { /* ... (unchanged dark mode imagePreview a hover styles) ... */
+        .dark-mode #imagePreview a:hover, .dark-mode #imagePreview a:focus { /* ... (dark mode imagePreview a hover styles) ... */
             color: var(--primary-color-dark-mode-darker);
         }
 
 
-        #buttonContainer { /* ... (unchanged buttonContainer styles) ... */
+        #buttonContainer { /* ... (buttonContainer styles) ... */
             text-align: center;
         }
 
-        #convertButton, #clearButton { /* ... (unchanged convertButton, clearButton styles) ... */
+        #convertButton, #clearButton { /* ... (convertButton, clearButton styles) ... */
             padding: 14px 30px;
             cursor: pointer;
             margin: 0 15px;
@@ -290,49 +268,49 @@
             justify-content: center; /* Center text horizontally if needed */
         }
 
-        #convertButton:hover, #convertButton:focus, #clearButton:hover, #clearButton:focus { /* ... (unchanged button hover styles) ... */
+        #convertButton:hover, #convertButton:focus, #clearButton:hover, #clearButton:focus { /* ... (button hover styles) ... */
             background-color: var(--primary-color-dark);
             transform: scale(1.05);
             box-shadow: var(--shadow-light);
         }
 
-        .dark-mode #convertButton { /* ... (unchanged dark mode convertButton styles) ... */
+        .dark-mode #convertButton { /* ... (dark mode convertButton styles) ... */
             background-color: var(--primary-color-dark-mode);
             color: var(--bg-dark);
             box-shadow: var(--shadow-dark);
         }
-        .dark-mode #convertButton:hover, .dark-mode #convertButton:focus { /* ... (unchanged dark mode convertButton hover styles) ... */
+        .dark-mode #convertButton:hover, .dark-mode #convertButton:focus { /* ... (dark mode convertButton hover styles) ... */
             background-color: var(--primary-color-dark-mode-darker);
             box-shadow: var(--shadow-dark);
         }
 
 
-        #clearButton { /* ... (unchanged clearButton styles) ... */
+        #clearButton { /* ... (clearButton styles) ... */
             background-color: var(--border-light);
             color: var(--text-light);
             box-shadow: none;
             border: 2px solid transparent;
         }
 
-        #clearButton:hover, #clearButton:focus { /* ... (unchanged clearButton hover styles) ... */
+        #clearButton:hover, #clearButton:focus { /* ... (clearButton hover styles) ... */
             background-color: #d1d5db;
             border-color: var(--border-light);
         }
 
 
-        .dark-mode #clearButton { /* ... (unchanged dark mode clearButton styles) ... */
+        .dark-mode #clearButton { /* ... (dark mode clearButton styles) ... */
             background-color: var(--input-dark);
             color: var(--text-dark);
             border-color: transparent;
             box-shadow: none;
         }
-        .dark-mode #clearButton:hover, .dark-mode #clearButton:focus { /* ... (unchanged dark mode clearButton hover styles) ... */
+        .dark-mode #clearButton:hover, .dark-mode #clearButton:focus { /* ... (dark mode clearButton hover styles) ... */
             background-color: #4a5568;
             border-color: var(--border-dark);
         }
 
 
-        #textOutputContainer { /* ... (unchanged textOutputContainer styles) ... */
+        #textOutputContainer { /* ... (textOutputContainer styles) ... */
             display: flex;
             flex-direction: column;
             align-items: stretch;
@@ -347,7 +325,7 @@
         }
 
 
-        #textOutput { /* ... (unchanged textOutput styles) ... */
+        #textOutput { /* ... (textOutput styles) ... */
             width: 100%;
             height: 300px;
             padding: 20px;
@@ -362,24 +340,24 @@
             transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
             outline: none;
         }
-        #textOutput:focus { /* ... (unchanged textOutput focus styles) ... */
+        #textOutput:focus { /* ... (textOutput focus styles) ... */
             border-color: var(--primary-color);
             box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.2);
         }
 
 
-        .dark-mode #textOutput { /* ... (unchanged dark mode textOutput styles) ... */
+        .dark-mode #textOutput { /* ... (dark mode textOutput styles) ... */
             border-color: var(--border-dark);
             background-color: var(--input-dark);
             color: var(--text-dark);
             box-shadow: var(--shadow-dark);
         }
-        .dark-mode #textOutput:focus { /* ... (unchanged dark mode textOutput focus styles) ... */
+        .dark-mode #textOutput:focus { /* ... (dark mode textOutput focus styles) ... */
             border-color: var(--primary-color-dark-mode);
             box-shadow: 0 0 0 3px rgba(91, 192, 222, 0.2);
         }
 
-        #copyButtonDev { /* ... (unchanged copyButtonDev styles) ... */
+        #copyButtonDev { /* ... (copyButtonDev styles) ... */
             display: flex;
             flex-direction: row;
             justify-content: flex-end; /* Align items to the end of the container */
@@ -416,7 +394,7 @@
 
 
         /* --- Custom Alert Styles --- */
-        #customAlert { /* ... (unchanged customAlert styles) ... */
+        #customAlert { /* ... (customAlert styles) ... */
             position: fixed;
             bottom: 30px;
             left: 30px;
@@ -435,144 +413,53 @@
             font-size: 0.9rem;
         }
 
-        .dark-mode #customAlert { /* ... (unchanged dark mode customAlert styles) ... */
+        .dark-mode #customAlert { /* ... (dark mode customAlert styles) ... */
             background-color: var(--input-dark);
             color: var(--text-dark);
             box-shadow: var(--shadow-dark);
         }
 
 
-        #customAlert.show { /* ... (unchanged customAlert show styles) ... */
+        #customAlert.show { /* ... (customAlert show styles) ... */
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
         }
 
 
-        /* --- Dark Mode Toggle Button Styles --- */
-        #darkModeToggle { /* ... (unchanged darkModeToggle styles) ... */
-            float: right;
+        /* --- Dark Mode Toggle Button Styles - In Menu --- */
+        #darkModeToggle { /* Style for inside menu */
             background: none;
             border: none;
             color: var(--text-light);
             cursor: pointer;
-            font-size: 1.75rem;
+            font-size: 1.5rem; /* Slightly smaller in menu */
             opacity: 0.9;
             transition: opacity 0.2s ease, color 0.3s ease, transform 0.2s ease;
-            padding: 12px;
-            border-radius: 12px;
+            padding: 10px 0; /* Adjust padding for menu */
+            border-radius: 8px;
             outline: none;
+            display: block; /* Full width in menu */
+            text-align: left; /* Align text to the left */
         }
 
-        #darkModeToggle:hover, #darkModeToggle:focus { /* ... (unchanged darkModeToggle hover styles) ... */
+        #darkModeToggle:hover, #darkModeToggle:focus { /* ... (darkModeToggle hover styles) ... */
             opacity: 1;
             color: var(--primary-color);
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
-        .dark-mode #darkModeToggle { /* ... (unchanged dark mode darkModeToggle styles) ... */
+        .dark-mode #darkModeToggle { /* ... (dark mode darkModeToggle styles) ... */
             color: var(--text-dark);
         }
-        .dark-mode #darkModeToggle:hover, .dark-mode #darkModeToggle:focus { /* ... (unchanged dark mode darkModeToggle hover styles) ... */
+        .dark-mode #darkModeToggle:hover, .dark-mode #darkModeToggle:focus { /* ... (dark mode darkModeToggle hover styles) ... */
             color: var(--primary-color-dark-mode);
         }
 
-        #darkModeToggle i { /* ... (unchanged darkModeToggle i styles) ... */
+        #darkModeToggle i { /* ... (darkModeToggle i styles) ... */
             pointer-events: none;
+            margin-right: 10px; /* Space between icon and text */
         }
 
-        /* --- Media Queries for Responsiveness --- */
-
-        /* For tablets and larger smartphones - Adjust container width and padding, font sizes */
-        @media (max-width: 768px) { /* ... (unchanged tablet media query) ... */
-            .container {
-                max-width: 90%;
-                padding: 30px;
-            }
-            h1 {
-                font-size: 2rem;
-                margin-bottom: 30px;
-            }
-            #fileUploadSection button, #convertButton, #clearButton {
-                padding: 12px 25px;
-                font-size: 1rem;
-            }
-            #imagePreview {
-                padding: 30px;
-                min-height: 160px;
-            }
-            #textOutput {
-                height: 250px;
-                padding: 15px;
-                font-size: 0.95rem;
-            }
-        }
-
-        /* For smaller smartphones - Further reduce container width, padding, font sizes, stack buttons */
-        @media (max-width: 576px) {
-            .container {
-                max-width: 95%;
-                padding: 20px;
-                border-radius: 8px;
-            }
-            h1 {
-                font-size: 1.75rem;
-                margin-bottom: 25px;
-            }
-            #fileUploadSection button, #convertButton, #clearButton {
-                padding: 10px 20px;
-                font-size: 0.9rem;
-                margin: 5px;
-            }
-            #buttonContainer {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-            #convertButton, #clearButton {
-                margin: 5px 0;
-                width: 90%;
-                max-width: 250px;
-            }
-
-            /* HIDE IMAGE PREVIEW SECTION COMPLETELY ON MOBILE */
-            #imagePreview {
-                display: none; /* HIDE imagePreview on mobile */
-            }
-            #textOutputContainer {
-                margin-top: 0; /* Adjust margin when imagePreview is hidden */
-            }
-
-
-            #textOutput {
-                height: 200px;
-                padding: 10px;
-                font-size: 0.9rem;
-                border-radius: 6px;
-            }
-            #copyButton {
-                font-size: 1.4rem;
-                margin-top: 5px;
-            }
-            #customAlert {
-                padding: 15px;
-                bottom: 10px;
-                border-radius: 6px;
-                font-size: 0.85rem;
-            }
-            header {
-                padding: 15px;
-                margin-bottom: 15px;
-            }
-            header h2 {
-                font-size: 1.3rem;
-            }
-            #darkModeToggle {
-                font-size: 1.6rem;
-                padding: 5px;
-                top: 10px;
-                right: 10px;
-            }
-        }
 
         /* --- Spinner Animation CSS --- */
         @keyframes spin {
@@ -588,22 +475,231 @@
             border-radius: 50%;
             animation: spin 1s linear infinite;
             vertical-align: middle; /* Align with button text */
+            z-index: 1002; /* ADDED: Ensure spinner is above menu icon */
         }
 
         .dark-mode .spinner {
             border-color: var(--primary-color-dark-mode); /* Dark mode spinner color */
             border-top-color: transparent;
+            z-index: 1002; /* ADDED: Dark mode spinner z-index */
+        }
+
+        /* --- Right Side Menu CSS --- */
+        .right-side-menu {
+          position: fixed; /* Stay in place even when scrolling */
+          top: 0;
+          right: 0; /* Start off-screen on the right */
+          width: 300px; /* Adjust as needed */
+          height: 100%;
+          background-color: var(--bg-light); /* Use light background color variable */
+          box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+          padding: 20px;
+          transition: transform 0.3s ease-in-out; /* Smooth open/close animation */
+          transform: translateX(100%); /* Initially hidden to the right */
+          z-index: 1000; /* Ensure it's on top of other content */
+          overflow-y: auto; /* Allow scrolling if menu content is long */
+          color: var(--text-light); /* Use light text color variable */
+        }
+
+        .dark-mode .right-side-menu {
+          background-color: var(--bg-dark); /* Use dark background color variable in dark mode */
+          color: var(--text-dark); /* Use dark text color variable in dark mode */
+          box-shadow: var(--shadow-dark); /* Use dark shadow in dark mode */
+        }
+
+
+        .right-side-menu.open {
+          transform: translateX(0); /* Slide in from the right when open class is added */
+        }
+
+        .menu-header {
+          display: flex;
+          justify-content: flex-end; /* Close button and potentially other header content */
+          align-items: center;
+          margin-bottom: 15px;
+        }
+
+        .close-button {
+          background: none;
+          border: none;
+          font-size: 24px;
+          cursor: pointer;
+          color: var(--text-light); /* Use text color variable */
+          padding: 5px 10px;
+        }
+
+        .dark-mode .close-button {
+          color: var(--text-dark); /* Use dark text color in dark mode */
+        }
+
+
+        .close-button:hover {
+          color: #333; /* Or adjust hover color */
+        }
+        .dark-mode .close-button:hover {
+          color: #ccc; /* Or adjust dark mode hover color */
+        }
+
+
+        .menu-content {
+          /* Style your menu content as needed */
+        }
+
+        .menu-content ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          /* Removed default list styles */
+        }
+
+        .menu-content ul li {
+          margin-bottom: 0; /* Removed default list item margin */
+        }
+
+        .menu-content ul li button, .menu-content ul li label { /* Style for buttons and labels inside menu list items */
+          display: block;
+          padding: 10px 0; /* Adjust padding for menu items */
+          color: var(--text-light); /* Use text color variable */
+          border-radius: 0; /* Removed rounded corners for links */
+          width: 100%; /* Full width  */
+          text-align: left; /* Align text left */
+          font-size: 1.5rem;
+          background: none;
+          border: none;
+          cursor: pointer;
+        }
+        .dark-mode .menu-content ul li button, .dark-mode .menu-content ul li label {
+          color: var(--text-dark); /* Use dark text color in dark mode */
+        }
+
+
+        .menu-content ul li button:hover, .menu-content ul li label:hover {
+          background-color: #eee; /* Hover background color */
+        }
+        .dark-mode .menu-content ul li  button:hover, .dark-mode .menu-content ul li label:hover {
+          background-color: #444; /* Dark mode hover background color */
+        }
+
+        /* --- Toggle Switch Styles --- */
+        .switch {
+          position: relative;
+          display: inline-block;
+          width: 40px; /* Reduced width of switch */
+          height: 22px; /* Reduced height of switch */
+        }
+
+        .switch input {
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+
+        .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #ccc;
+          transition: .4s;
+          border-radius: 22px; /* Adjusted border-radius for smaller switch */
+        }
+
+        .slider:before {
+          position: absolute;
+          content: "";
+          height: 16px; /* Adjusted handle height */
+          width: 16px; /* Adjusted handle width */
+          left: 3px; /* Adjusted handle position */
+          bottom: 3px; /* Adjusted handle position */
+          background-color: white;
+          transition: .4s;
+          border-radius: 50%;
+        }
+
+        input:checked + .slider {
+          background-color: var(--primary-color); /* Use primary color when toggled on */
+        }
+
+        .dark-mode input:checked + .slider {
+            background-color: var(--primary-color-dark-mode); /* Dark mode primary color */
+        }
+
+        input:focus + .slider {
+          box-shadow: 0 0 1px var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+          transform: translateX(18px); /* Adjusted handle movement for smaller switch */
+        }
+
+        .slider.round {
+          border-radius: 34px; /* Keep round border-radius */
+        }
+
+        .slider.round:before {
+          border-radius: 50%;
+        }
+
+
+        /* --- Open Menu Button Styling - Repositioned to Right --- */
+        .open-menu-button {
+          position: absolute; /* Position within container */
+          top: 15px;
+          right: 15px; /* Changed from left to right */
+          background: none; /* No background */
+          border: none; /* No border */
+          color: var(--text-light); /* Use text color variable */
+          padding: 10px; /* Adjust padding as needed */
+          cursor: pointer;
+          font-size: 1.5rem; /* Adjust size as needed */
+          opacity: 0.9;
+          transition: opacity 0.2s ease, color 0.3s ease, transform 0.2s ease;
+          outline: none;
+          z-index: 1001; /* Ensure it's above container content */
+        }
+        .dark-mode .open-menu-button {
+          color: var(--text-dark); /* Use dark text color in dark mode */
+        }
+
+
+        .open-menu-button:hover, .open-menu-button:focus {
+          opacity: 1;
+          color: var(--primary-color); /* Hover color */
+          transform: scale(1.1);
+        }
+        .dark-mode .open-menu-button:hover, .dark-mode .open-menu-button:focus {
+          color: var(--primary-color-dark-mode); /* Dark mode hover color */
+        }
+
+        /* --- Active Menu Icon Style --- */
+        .menu-icon-active {
+            color: var(--primary-color); /* Active icon color - Light Mode */
+        }
+        .dark-mode .menu-icon-active {
+            color: var(--primary-color-dark-mode); /* Active icon color - Dark Mode */
+        }
+
+
+        /* --- Media Query for responsiveness (Optional - adjust breakpoints as needed) --- */
+        @media (max-width: 768px) {
+          .right-side-menu {
+            width: 80%; /* Make menu wider on smaller screens */
+          }
         }
 
 
     </style>
 </head>
 <body class="dark-mode">
-          <button id="darkModeToggle" title="Toggle Dark Mode" aria-label="Toggle Dark Mode">
-            <i class="fas fa-sun light-mode-icon"></i><i class="fas fa-moon dark-mode-icon" style="display: none;"></i>
-        </button>
 
     <div class="container">
+      <button id="open-menu-btn" class="open-menu-button" aria-label="Open Menu">
+      <i class="fas fa-bars"></i>  <!-- Font Awesome Hamburger Icon -->
+    </button>
+         
+
 
         <div id="fileUploadSection">
             <input type="file" id="imageUpload" accept="image/*" multiple>
@@ -642,6 +738,30 @@
         </div>
 
         <div id="customAlert"></div> <!-- Custom Alert Container Added -->
+    </div>
+
+    <div id="right-side-menu" class="right-side-menu">
+      <div class="menu-header">
+        <button id="close-menu-btn" class="close-button" aria-label="Close Menu">
+          <i class="fas fa-times"></i> <!-- Font Awesome Close Icon -->
+        </button>
+      </div>
+      <div class="menu-content">
+        <!-- Menu content -->
+        <ul>
+          <li>
+            <button id="autoConvertButtonMenu" title="Enable Auto Convert" aria-label="Enable Auto Convert" style="display: flex; align-items: center; justify-content: flex-start; padding: 10px 0; font-size: 1.2rem; width: 100%; text-align: left; background: none; border: none; cursor: pointer; color: inherit;">
+                <i class="fas fa-power-off" id="autoConvertMenuIconOff" style="margin-right: 10px; display: inline-block;"></i>
+                <i class="fas fa-magic" id="autoConvertMenuIconOn" class="menu-icon-active" style="margin-right: 10px; display: none;"></i> Auto Convert
+            </button>
+          </li>
+          <li>
+            <button id="darkModeToggle" title="Toggle Dark Mode" aria-label="Toggle Dark Mode">
+                <i class="fas fa-sun light-mode-icon"></i><i class="fas fa-moon dark-mode-icon" style="display: none;"></i> Dark Mode
+            </button>
+          </li>
+        </ul>
+      </div>
     </div>
 
     <script src="https://unpkg.com/tesseract.js@v5.x/dist/tesseract.min.js"></script>
@@ -685,7 +805,7 @@
         });
 
 
-        /* --- JavaScript Code (modified for Custom Alerts, Copy without Filenames, and Download) --- */
+        /* --- JavaScript Code (modified for Custom Alerts, Copy without Filenames, and Download, Toggle Switch) --- */
         document.addEventListener('DOMContentLoaded', () => {
             const imageUpload = document.getElementById('imageUpload');
             const imagePreview = document.getElementById('imagePreview');
@@ -697,9 +817,14 @@
             const customAlert = document.getElementById('customAlert');
             const fileUploadStatus = document.getElementById('fileUploadStatus');
             const convertButtonSpinner = document.getElementById('convertButtonSpinner');
+            const autoConvertButtonMenu = document.getElementById('autoConvertButtonMenu'); // Get Auto Convert Menu Button
+            const autoConvertMenuIconOff = document.getElementById('autoConvertMenuIconOff'); // Get OFF icon for Auto Convert Menu
+            const autoConvertMenuIconOn = document.getElementById('autoConvertMenuIconOn');   // Get ON icon for Auto Convert Menu
 
             let uploadedFiles = [];
-            let textContentOnly = ""; // Variable to store only the text content
+            let textContentOnly = "";
+            let isAutoConvertEnabledState = false; // Track auto-convert state (initially off)
+
 
             // --- Function to Show Custom Alert ---
             function showCustomAlert(message) {
@@ -710,8 +835,13 @@
                 }, 3000);
             }
 
+            // --- Function to check if auto-convert is enabled (using state variable) --- (MODIFIED)
+            function isAutoConvertEnabled() {
+                return isAutoConvertEnabledState; // Return the state variable
+            }
 
-            // --- Function to handle image loading and preview (No changes here) ---
+
+            // --- Function to handle image loading and preview ---
             const handleImageFiles = (files) => {
                 uploadedFiles = Array.from(files);
                 imagePreview.innerHTML = '';
@@ -724,12 +854,15 @@
                                 imagePreview.innerHTML = `<img src="${e.target.result}" alt="Uploaded Image">`;
                             };
                             reader.readAsDataURL(file);
-                            fileUploadStatus.textContent = "1 file selected"; // Update status for single file
+                            fileUploadStatus.textContent = "1 file selected";
+                            if (isAutoConvertEnabled()) { // Check if auto-convert is enabled
+                                convertButton.click(); // Programmatically click convert button
+                            }
                         } else {
                             imagePreview.innerHTML = '<i class="fas fa-image"></i><span>Drag and drop image(s) here or click to select</span>';
                             uploadedFiles = [];
                             showCustomAlert("Please upload valid image files.");
-                            fileUploadStatus.textContent = "No files selected"; // Reset status on error
+                            fileUploadStatus.textContent = "No files selected";
                         }
                     } else {
                         let previewContent = '<b>Multiple images selected:</b><br>';
@@ -743,16 +876,19 @@
                             uploadedFiles = [];
                             showCustomAlert("Please upload valid image files.");
                             imagePreview.innerHTML = '<i class="fas fa-image"></i><span>Drag and drop image(s) here or click to select</span>';
-                            fileUploadStatus.textContent = "No files selected"; // Reset status on error
+                            fileUploadStatus.textContent = "No files selected";
                         } else {
-                            fileUploadStatus.textContent = `${files.length} files selected`; // Update status for multiple files
+                            fileUploadStatus.textContent = `${files.length} files selected`;
+                            if (isAutoConvertEnabled()) { // Check if auto-convert is enabled
+                                convertButton.click(); // Programmatically click convert button
+                            }
                         }
 
                     }
                 } else {
                     imagePreview.innerHTML = '<i class="fas fa-image"></i><span>Drag and drop image(s) here or click to select</span>';
                     uploadedFiles = [];
-                    fileUploadStatus.textContent = "No files selected"; // Reset status when no files
+                    fileUploadStatus.textContent = "No files selected";
                 }
             };
 
@@ -877,6 +1013,51 @@
                 textContentOnly = ""; // Clear textContentOnly as well
             });
 
+            /* --- Auto Convert Menu Button Click Listener --- (NEW) */
+            autoConvertButtonMenu.addEventListener('click', () => {
+                isAutoConvertEnabledState = !isAutoConvertEnabledState; // Toggle the state
+
+                if (isAutoConvertEnabledState) {
+                    autoConvertMenuIconOff.style.display = 'none'; // Hide OFF icon
+                    autoConvertMenuIconOn.style.display = 'inline-block'; // Show ON icon
+                    autoConvertMenuIconOn.classList.add('menu-icon-active'); // Add active class to ON icon
+                    autoConvertButtonMenu.setAttribute('title', 'Disable Auto Convert'); // Update tooltip
+                    autoConvertButtonMenu.setAttribute('aria-label', 'Disable Auto Convert'); // Update aria-label
+                    showCustomAlert('Auto Convert is now ON. Images will be converted automatically.'); // Optional alert
+                } else {
+                    autoConvertMenuIconOn.classList.remove('menu-icon-active'); // Remove active class from ON icon
+                    autoConvertMenuIconOn.style.display = 'none'; // Hide ON icon
+                    autoConvertMenuIconOff.style.display = 'inline-block'; // Show OFF icon
+                    autoConvertButtonMenu.setAttribute('title', 'Enable Auto Convert'); // Update tooltip
+                    autoConvertButtonMenu.setAttribute('aria-label', 'Enable Auto Convert'); // Update aria-label
+                    showCustomAlert('Auto Convert is now OFF. You need to click "Convert to Text" button.'); // Optional alert
+                }
+            });
+
+
+            /* --- Menu JavaScript --- */
+            const openMenuBtn = document.getElementById('open-menu-btn');
+            const closeMenuBtn = document.getElementById('close-menu-btn');
+            const rightSideMenu = document.getElementById('right-side-menu');
+
+            if (openMenuBtn && closeMenuBtn && rightSideMenu) { // Check if elements exist
+              openMenuBtn.addEventListener('click', function() {
+                rightSideMenu.classList.add('open');
+              });
+
+              closeMenuBtn.addEventListener('click', function() {
+                rightSideMenu.classList.remove('open');
+              });
+
+              // Optional: Close menu when clicking outside of it
+              document.addEventListener('click', function(event) {
+                if (!rightSideMenu.contains(event.target) && !openMenuBtn.contains(event.target) && rightSideMenu.classList.contains('open')) {
+                  rightSideMenu.classList.remove('open');
+                }
+              });
+            } else {
+              console.error("One or more menu elements not found. Check your HTML IDs.");
+            }
 
         });
     </script>
