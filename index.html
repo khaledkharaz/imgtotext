@@ -55,7 +55,7 @@
         body.dark-mode { /* ... (dark mode body styles - background texture added) ... */
             background-color: var(--bg-dark);
             color: var(--text-dark);
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234b5563' fill-opacity='0.24'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4H6zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); /* Subtle background texture for dark mode */
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234b5563' fill-opacity='0.24'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); /* Subtle background texture for dark mode */
         }
 
         /* --- Removed Header Styles --- */
@@ -520,9 +520,13 @@
         }
 
         .close-button {
+            text-align: left;
+            float: left;
+            width: 100%;
+            margin-bottom: 30px;
           background: none;
           border: none;
-          font-size: 24px;
+           font-size: 24px;
           cursor: pointer;
           color: var(--text-light); /* Use text color variable */
           padding: 5px 10px;
@@ -698,7 +702,6 @@
       <button id="open-menu-btn" class="open-menu-button" aria-label="Open Menu">
       <i class="fas fa-bars"></i>  <!-- Font Awesome Hamburger Icon -->
     </button>
-         
 
 
         <div id="fileUploadSection">
@@ -741,7 +744,7 @@
     </div>
 
     <div id="right-side-menu" class="right-side-menu">
-      <div class="menu-header">
+      <div class=" ">
         <button id="close-menu-btn" class="close-button" aria-label="Close Menu">
           <i class="fas fa-times"></i> <!-- Font Awesome Close Icon -->
         </button>
@@ -749,6 +752,7 @@
       <div class="menu-content">
         <!-- Menu content -->
         <ul>
+            
           <li>
             <button id="autoConvertButtonMenu" title="Enable Auto Convert" aria-label="Enable Auto Convert" style="display: flex; align-items: center; justify-content: flex-start; padding: 10px 0; font-size: 1.2rem; width: 100%; text-align: left; background: none; border: none; cursor: pointer; color: inherit;">
                 <i class="fas fa-power-off" id="autoConvertMenuIconOff" style="margin-right: 10px; display: inline-block;"></i>
@@ -1035,7 +1039,7 @@
             });
 
 
-            /* --- Menu JavaScript --- */
+            /* --- Menu JavaScript - UPDATED for Button Hide/Show --- */
             const openMenuBtn = document.getElementById('open-menu-btn');
             const closeMenuBtn = document.getElementById('close-menu-btn');
             const rightSideMenu = document.getElementById('right-side-menu');
@@ -1043,16 +1047,19 @@
             if (openMenuBtn && closeMenuBtn && rightSideMenu) { // Check if elements exist
               openMenuBtn.addEventListener('click', function() {
                 rightSideMenu.classList.add('open');
+                openMenuBtn.style.display = 'none'; // Hide the menu button when menu opens
               });
 
               closeMenuBtn.addEventListener('click', function() {
                 rightSideMenu.classList.remove('open');
+                openMenuBtn.style.display = 'block'; // Show the menu button when menu closes
               });
 
               // Optional: Close menu when clicking outside of it
               document.addEventListener('click', function(event) {
                 if (!rightSideMenu.contains(event.target) && !openMenuBtn.contains(event.target) && rightSideMenu.classList.contains('open')) {
                   rightSideMenu.classList.remove('open');
+                  openMenuBtn.style.display = 'block'; // Show the menu button when menu closes by outside click
                 }
               });
             } else {
