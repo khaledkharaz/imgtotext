@@ -55,7 +55,7 @@
         body.dark-mode { /* ... (dark mode body styles - background texture added) ... */
             background-color: var(--bg-dark);
             color: var(--text-dark);
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234b5563' fill-opacity='0.24'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); /* Subtle background texture for dark mode */
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234b5563' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); /* Reduced opacity for dark mode texture */
         }
 
         /* --- Removed Header Styles --- */
@@ -309,7 +309,7 @@
             box-shadow: none;
         }
         .dark-mode #clearButton:hover, .dark-mode #clearButton:focus { /* ... (dark mode clearButton hover styles) ... */
-            background-color: #4a5568;
+            background-color: #5a6275; /* Slightly lighter hover - more contrast */
             border-color: var(--border-dark);
         }
 
@@ -320,12 +320,17 @@
             align-items: stretch;
             margin-top: 15px;
             margin-right: 25px;
+            margin-left: 25px; /* Add left margin for symmetry */
         }
         /* ADDED RIGHT MARGIN FOR TEXT OUTPUT CONTAINER ON MOBILE (unchanged) */
         @media (max-width: 576px) {
           #textOutputContainer {
             margin-right: 15px;
             margin-left: 15px; /* Added left margin for mobile text output */
+          }
+          #copyButtonDev {
+            padding-right: 15px; /* Add right padding on mobile */
+            padding-left: 15px; /* Add left padding on mobile for consistency */
           }
         }
 
@@ -359,7 +364,7 @@
         }
         .dark-mode #textOutput:focus { /* ... (dark mode textOutput focus styles) ... */
             border-color: var(--primary-color-dark-mode);
-            box-shadow: 0 0 0 3px rgba(91, 192, 222, 0.2);
+            box-shadow: 0 0 0 3px rgba(91, 192, 222, 0.3); /* Slightly more visible focus outline */
         }
 
         #copyButtonDev { /* ... (copyButtonDev styles) ... */
@@ -586,7 +591,7 @@
           background-color: #eee; /* Hover background color */
         }
         .dark-mode .menu-content ul li  button:hover, .dark-mode .menu-content ul li label:hover {
-          background-color: #444; /* Dark mode hover background color */
+          background-color: #555; /* Slightly lighter hover for dark mode menu */
         }
 
         /* --- Toggle Switch Styles --- */
@@ -1043,7 +1048,7 @@
 
 
             clearButton.addEventListener('click', () => {
-                imagePreview.innerHTML = '<i class="fas fa-image"></i><span>Drag and drop image(s) here or <a href="javascript:void(0);" onclick="document.getElementById(\'imageUpload\').click();" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">click to select</a></span>';
+                imagePreview.innerHTML = '<i class="fas fa-image"></i><span>Drag and drop image(s) here or <a href="javascript:void(0);" onclick="document.getElementById(\'imageUpload\').click();">click to select</a></span>'; // Removed inline style here as well
                 imagePreview.classList.remove('dragover');
                 textOutput.value = "";
                 uploadedFiles = [];
